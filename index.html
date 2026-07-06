@@ -7,165 +7,181 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   background:#030503;
-  color:#f4f4f4;
+  color:#fff;
   font-family:Arial, sans-serif;
 }
+
 .app{
   min-height:100vh;
-  display:grid;
-  grid-template-columns:240px 1fr 260px;
-  gap:12px;
-  padding:10px;
+  padding:14px;
   background:
     linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.92)),
     url("take5.png") center/cover fixed no-repeat;
 }
-.panel{
-  border:1px solid #2f6f1f;
-  background:rgba(0,0,0,.65);
-  border-radius:14px;
+
+.header{
+  border:1px solid #d4a638;
+  border-radius:16px;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  margin-bottom:14px;
 }
-.sidebar{padding:18px}
-.logo{
-  color:#7fc653;
-  font-size:22px;
-  letter-spacing:3px;
+
+.brand{
+  color:#d4a638;
+  letter-spacing:4px;
+  font-size:13px;
   font-weight:bold;
 }
-.logo span{color:#d4a638}
-.small{
-  color:#d4a638;
-  letter-spacing:3px;
-  font-size:11px;
-  margin-top:8px;
-}
-.nav{
-  margin-top:28px;
-}
-.nav div{
-  padding:12px;
-  margin:8px 0;
-  border-radius:8px;
-  letter-spacing:1px;
-}
-.nav .active{
-  border:1px solid #7fc653;
-  background:rgba(127,198,83,.18);
-  color:#7fc653;
-}
-.quote{
-  margin-top:30px;
-  border:1px solid #d4a638;
-  border-radius:12px;
-  padding:16px;
-  text-align:center;
-  color:#7fc653;
-  line-height:1.6;
-}
-.main{padding:0}
-.hero{
-  padding:22px;
-  border-bottom:1px solid rgba(212,166,56,.4);
-}
+
 h1{
   color:#7fc653;
   font-size:38px;
+  margin:8px 0 4px;
   letter-spacing:2px;
-  margin:0;
 }
-h1 span{color:#d4a638}
-.subtitle{
+
+.tag{
   color:#d4a638;
   letter-spacing:4px;
-  margin-top:8px;
   font-size:12px;
 }
-.topgrid{
+
+.layout{
   display:grid;
-  grid-template-columns:1.3fr .8fr;
-  gap:12px;
-  padding:12px;
+  grid-template-columns:1fr 280px;
+  gap:14px;
 }
-.card{
-  border:1px solid #2f6f1f;
-  border-radius:12px;
+
+.panel{
+  border:1px solid #d4a638;
+  border-radius:14px;
+  background:rgba(0,0,0,.72);
   padding:14px;
-  background:rgba(0,0,0,.6);
 }
-.card h3{
-  margin:0 0 12px;
+
+.panel h3{
   color:#7fc653;
+  margin:0 0 12px;
   letter-spacing:2px;
 }
-.addrow{
+
+.controls{
+  margin-bottom:14px;
+}
+
+.row{
   display:grid;
-  grid-template-columns:1fr 1fr 1.5fr 1.2fr auto;
+  grid-template-columns:1fr 1fr 1.4fr 1fr auto;
   gap:8px;
 }
-select,button,input{
-  background:#0b0d0b;
-  color:#fff;
+
+select,input,button,textarea{
+  background:#070907;
+  color:white;
   border:1px solid #d4a638;
-  border-radius:7px;
-  padding:8px;
+  border-radius:8px;
+  padding:9px;
 }
+
 button{
   cursor:pointer;
   color:#7fc653;
   font-weight:bold;
 }
+
+button:hover{
+  background:rgba(127,198,83,.18);
+}
+
 .quick{
-  padding:0 12px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
 }
+
 .quick button{
-  margin:4px;
-  border-color:#2f6f1f;
+  border-color:#7fc653;
+  color:#fff;
+  background:rgba(127,198,83,.14);
 }
+
+.favoriteAdd{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:8px;
+  margin-top:12px;
+}
+
 .weekbar{
-  margin:0 12px;
-  padding:12px;
   border:1px solid #d4a638;
-  border-radius:12px 12px 0 0;
+  border-radius:14px 14px 0 0;
+  padding:12px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  background:rgba(0,0,0,.7);
 }
+
 .weekbar h2{
-  margin:0;
   color:#7fc653;
+  margin:0;
   letter-spacing:2px;
 }
+
+.weekActions{
+  display:flex;
+  gap:8px;
+}
+
+.clearWeek{
+  border-color:#c83c32;
+  color:#ff9a90;
+}
+
 .calendar{
-  margin:0 12px 12px;
-  border:1px solid #d4a638;
-  border-top:none;
-  border-radius:0 0 12px 12px;
   display:grid;
   grid-template-columns:repeat(7,1fr);
+  border:1px solid #d4a638;
+  border-top:none;
+  border-radius:0 0 14px 14px;
   overflow:hidden;
+  background:rgba(0,0,0,.62);
 }
+
 .day{
-  min-height:430px;
+  min-height:470px;
+  border-right:1px solid rgba(212,166,56,.35);
   padding:8px;
-  border-right:1px solid rgba(212,166,56,.25);
 }
+
 .day:last-child{border-right:none}
+
 .dayhead{
-  text-align:center;
   color:#7fc653;
+  text-align:center;
   font-weight:bold;
   letter-spacing:2px;
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
+
 .dayhead span{
   display:block;
-  color:#fff;
-  font-weight:normal;
+  color:#d4a638;
+  font-size:24px;
   margin-top:4px;
 }
+
+.eventList{
+  min-height:360px;
+  padding-bottom:8px;
+}
+
 .event{
   border-left:4px solid;
   border-radius:8px;
@@ -174,42 +190,64 @@ button{
   font-size:12px;
   line-height:1.35;
   outline:none;
+  position:relative;
 }
+
+.event:hover .eventBtns{
+  display:flex;
+}
+
+.eventBtns{
+  display:none;
+  gap:5px;
+  margin-top:6px;
+}
+
+.eventBtns button{
+  font-size:10px;
+  padding:4px 6px;
+}
+
 .personal{background:rgba(151,80,190,.18);border-color:#9750be}
 .editing{background:rgba(212,166,56,.2);border-color:#d4a638}
 .content{background:rgba(44,160,160,.2);border-color:#2ca0a0}
 .work{background:rgba(50,120,210,.2);border-color:#3278d2}
 .shoot{background:rgba(127,198,83,.2);border-color:#7fc653}
 .deadline{background:rgba(200,60,50,.2);border-color:#c83c32}
-.addday{
-  color:#7fc653;
-  font-size:12px;
-  text-align:center;
+
+.clearBtn{
+  width:100%;
   margin-top:8px;
-  cursor:pointer;
+  border-color:#c83c32;
+  color:#ff9a90;
+  background:rgba(200,60,50,.12);
+  font-size:12px;
 }
-.rightcol{padding:12px}
-.sidecard{
-  border:1px solid #d4a638;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:12px;
-  background:rgba(0,0,0,.65);
+
+.sideBox{
+  margin-bottom:14px;
 }
-.sidecard h3{
-  margin:0 0 12px;
-  color:#d4a638;
-  letter-spacing:2px;
+
+.todayItem{
+  border-left:4px solid #7fc653;
+  padding:7px;
+  margin-bottom:7px;
+  background:rgba(127,198,83,.14);
+  border-radius:8px;
+  font-size:12px;
 }
+
 .task{
   display:flex;
   gap:8px;
   margin:9px 0;
   font-size:13px;
 }
+
 .legend div{
-  margin:10px 0;
+  margin:9px 0;
 }
+
 .dot{
   display:inline-block;
   width:12px;
@@ -217,24 +255,32 @@ button{
   border-radius:50%;
   margin-right:8px;
 }
+
 .footer{
-  margin:12px;
-  padding:16px;
-  border:1px solid #2f6f1f;
-  border-radius:12px;
+  margin-top:14px;
+  border:1px solid #7fc653;
+  border-radius:14px;
+  padding:14px;
+  color:#d4a638;
   text-align:center;
-  color:#7fc653;
-  letter-spacing:6px;
+  letter-spacing:5px;
+  background:rgba(0,0,0,.65);
 }
+
 [contenteditable="true"]:focus{
   background:rgba(255,255,255,.08);
   border-radius:5px;
 }
+
 @media(max-width:1000px){
-  .app{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr}
+  .row,.favoriteAdd{grid-template-columns:1fr}
   .calendar{grid-template-columns:1fr}
-  .day{min-height:auto;border-right:none;border-bottom:1px solid rgba(212,166,56,.25)}
-  .addrow{grid-template-columns:1fr}
+  .day{
+    min-height:auto;
+    border-right:none;
+    border-bottom:1px solid rgba(212,166,56,.35);
+  }
 }
 </style>
 </head>
@@ -243,75 +289,49 @@ button{
 
 <div class="app">
 
-  <aside class="sidebar panel">
-    <div class="logo" contenteditable="true">FUMAR FILM <span>PRODUCTION</span></div>
-    <div class="small" contenteditable="true">PLAN. SHOOT. EDIT. REPEAT.</div>
+  <div class="header">
+    <div class="brand" contenteditable="true">FUMAR FILM PRODUCTION</div>
+    <h1 contenteditable="true">🎬 SHANE’S PRODUCTION SCHEDULE</h1>
+    <div class="tag" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
+  </div>
 
-    <div class="nav">
-      <div class="active">🎬 Production Schedule</div>
-      <div>🎥 Shoots</div>
-      <div>✂️ Editing</div>
-      <div>👥 Clients</div>
-      <div>📱 Content Drops</div>
-      <div>🎞️ Editing Queue</div>
-      <div>💼 Equipment / Prep</div>
-      <div>📍 Locations</div>
-      <div>💰 Finances</div>
-      <div>📝 Notes</div>
-    </div>
+  <div class="layout">
 
-    <div class="quote" contenteditable="true">
-      LOCK IN.<br>
-      STAY DISCIPLINED.<br>
-      CREATE WITHOUT LIMITS.<br><br>
-      — SHANE
-    </div>
-  </aside>
+    <main>
 
-  <main class="main panel">
-    <div class="hero">
-      <h1 contenteditable="true">🎬 PRODUCTION <span>SCHEDULE</span></h1>
-      <div class="subtitle" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
-    </div>
-
-    <div class="topgrid">
-      <div class="card">
+      <div class="panel controls">
         <h3>🎬 ADD TO SCHEDULE</h3>
 
-        <div class="addrow">
+        <div class="row">
           <select id="daySelect">
-            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
-            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
           </select>
 
           <select id="timeSelect">
-            <option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option>
-            <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option>
-            <option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
-            <option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option>
-            <option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+            <option>7:00 AM</option>
+            <option>8:00 AM</option>
+            <option>9:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>12:00 PM</option>
+            <option>1:00 PM</option>
+            <option>2:00 PM</option>
+            <option>3:00 PM</option>
+            <option>4:00 PM</option>
+            <option>5:00 PM</option>
+            <option>6:00 PM</option>
+            <option>7:00 PM</option>
+            <option>8:00 PM</option>
+            <option>9:00 PM</option>
           </select>
 
-          <select id="activitySelect">
-            <option>🧘 Meditation</option>
-            <option>☕ Breakfast</option>
-            <option>🐾 Walk the Dog</option>
-            <option>👦 Isaiah Time</option>
-            <option>👑 Queen Time</option>
-            <option>🧘 Yoga</option>
-            <option>💼 Work</option>
-            <option>📚 School</option>
-            <option>🌱 Water Plants</option>
-            <option>🚴 Bike Riding</option>
-            <option>🏋️ Workout</option>
-            <option>🏃 Gym</option>
-            <option>🚗 Running Errands</option>
-            <option>🎬 Prepare Record Content</option>
-            <option>📹 Record Content</option>
-            <option>🎙️ Record Audio</option>
-            <option>✂️ Editing Time</option>
-            <option>✍️ Writing Time</option>
-          </select>
+          <select id="activitySelect"></select>
 
           <select id="categorySelect">
             <option value="personal">💜 Personal</option>
@@ -324,180 +344,185 @@ button{
 
           <button onclick="addEvent()">+ ADD</button>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>📅 TODAY'S SCHEDULE</h3>
-        <div id="todayList" contenteditable="true">
-          7:00 AM 🧘 Meditation<br>
-          8:00 AM ☕ Breakfast<br>
-          9:00 AM 🐾 Walk the Dog<br>
-          12:00 PM 💼 Work / School<br>
-          3:00 PM 🎬 Prepare Record Content<br>
-          7:00 PM ✂️ Editing Time<br>
-          9:00 PM 👑 Queen Time
+        <div class="quick" id="quickButtons"></div>
+
+        <div class="favoriteAdd">
+          <input id="newTaskName" placeholder="Add new favorite task, ex: 🎬 Drone Practice">
+          <select id="newTaskCategory">
+            <option value="personal">💜 Personal</option>
+            <option value="editing">🟡 Editing</option>
+            <option value="content">🟦 Content</option>
+            <option value="work">🔵 Work / School</option>
+            <option value="shoot">🟢 Shoot</option>
+            <option value="deadline">🔴 Deadline</option>
+          </select>
+          <button onclick="addFavorite()">+ ADD TASK</button>
         </div>
       </div>
-    </div>    <div class="quick">
-      <button onclick="quickAdd('🧘 Yoga','personal')">🧘 Yoga</button>
-      <button onclick="quickAdd('☕ Breakfast','personal')">☕ Breakfast</button>
-      <button onclick="quickAdd('🐾 Walk the Dog','personal')">🐾 Dog</button>
-      <button onclick="quickAdd('👦 Isaiah Time','personal')">👦 Isaiah</button>
-      <button onclick="quickAdd('👑 Queen Time','personal')">👑 Queen</button>
-      <button onclick="quickAdd('🎬 Record Content','shoot')">🎬 Record</button>
-      <button onclick="quickAdd('🎙️ Record Audio','content')">🎙️ Audio</button>
-      <button onclick="quickAdd('✂️ Editing Time','editing')">✂️ Edit</button>
-      <button onclick="quickAdd('💼 Work','work')">💼 Work</button>
-      <button onclick="quickAdd('🏋️ Gym','personal')">🏋️ Gym</button>
-      <button onclick="quickAdd('🚴 Bike Riding','personal')">🚴 Bike</button>
-      <button onclick="quickAdd('🌱 Water Plants','personal')">🌱 Plants</button>
-    </div>
 
-    <div class="weekbar">
-      <h2 contenteditable="true">THIS WEEK</h2>
-      <div contenteditable="true">JULY 7 - JULY 13</div>
-    </div>
-
-    <div class="calendar" id="calendar">
-      <div class="day" data-day="Monday">
-        <div class="dayhead">MON <span contenteditable="true">7</span></div>
-        <div class="event personal" contenteditable="true">7:00 AM 🧘 Meditation</div>
-        <div class="event personal" contenteditable="true">8:00 AM ☕ Breakfast</div>
-        <div class="event work" contenteditable="true">12:00 PM 💼 Work / School</div>
-        <div class="event content" contenteditable="true">3:00 PM 🎬 Prepare Record Content</div>
-        <div class="event editing" contenteditable="true">7:00 PM ✂️ Editing Time</div>
+      <div class="weekbar">
+        <h2 contenteditable="true">THIS WEEK</h2>
+        <div contenteditable="true">JULY 7 - JULY 13</div>
+        <div class="weekActions">
+          <button onclick="updateToday()">TODAY</button>
+          <button class="clearWeek" onclick="clearWeek()">CLEAR WEEK</button>
+        </div>
       </div>
 
-      <div class="day" data-day="Tuesday">
-        <div class="dayhead">TUE <span contenteditable="true">8</span></div>
-        <div class="event personal" contenteditable="true">7:00 AM 🐾 Walk the Dog</div>
-        <div class="event personal" contenteditable="true">8:00 AM ☕ Breakfast</div>
-        <div class="event personal" contenteditable="true">10:00 AM 🚗 Running Errands</div>
-        <div class="event shoot" contenteditable="true">1:00 PM 📹 Record Content</div>
-        <div class="event content" contenteditable="true">4:00 PM 🎙️ Record Audio</div>
-        <div class="event personal" contenteditable="true">7:00 PM 👦 Isaiah Time</div>
+      <div class="calendar" id="calendar">        <div class="day" data-day="Monday">
+          <div class="dayhead">MON <span contenteditable="true">7</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Monday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Tuesday">
+          <div class="dayhead">TUE <span contenteditable="true">8</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Tuesday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Wednesday">
+          <div class="dayhead">WED <span contenteditable="true">9</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Wednesday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Thursday">
+          <div class="dayhead">THU <span contenteditable="true">10</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Thursday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Friday">
+          <div class="dayhead">FRI <span contenteditable="true">11</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Friday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Saturday">
+          <div class="dayhead">SAT <span contenteditable="true">12</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Saturday')">🗑️ Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Sunday">
+          <div class="dayhead">SUN <span contenteditable="true">13</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Sunday')">🗑️ Clear Day</button>
+        </div>
+
+      </div>
+    </main>
+
+    <aside>
+      <div class="panel sideBox">
+        <h3>📅 TODAY’S SCHEDULE</h3>
+        <div id="todayList"></div>
       </div>
 
-      <div class="day" data-day="Wednesday">
-        <div class="dayhead">WED <span contenteditable="true">9</span></div>
-        <div class="event personal" contenteditable="true">7:00 AM 🧘 Meditation</div>
-        <div class="event personal" contenteditable="true">8:00 AM 🌱 Water Plants</div>
-        <div class="event work" contenteditable="true">10:00 AM 💼 Work / School</div>
-        <div class="event editing" contenteditable="true">2:00 PM ✂️ Editing Time</div>
-        <div class="event content" contenteditable="true">5:00 PM ✍️ Writing Time</div>
-        <div class="event personal" contenteditable="true">8:00 PM 👑 Queen Time</div>
+      <div class="panel sideBox">
+        <h3>🎯 TODAY’S FOCUS</h3>
+        <div contenteditable="true">
+          Finish the most important scene of the day first.<br><br>
+          Record. Edit. Organize. Repeat.
+        </div>
       </div>
 
-      <div class="day" data-day="Thursday">
-        <div class="dayhead">THU <span contenteditable="true">10</span></div>
-        <div class="event personal" contenteditable="true">7:00 AM 🚴 Bike Riding</div>
-        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
-        <div class="event work" contenteditable="true">12:00 PM 💼 Work / School</div>
-        <div class="event shoot" contenteditable="true">3:00 PM 🎬 Shoot Prep</div>
-        <div class="event content" contenteditable="true">6:00 PM 🎙️ Record Audio</div>
-        <div class="event editing" contenteditable="true">8:00 PM ✂️ Edit Current Project</div>
+      <div class="panel sideBox">
+        <h3>✅ TASKS</h3>
+        <div class="task"><input type="checkbox"> <span contenteditable="true">Charge batteries</span></div>
+        <div class="task"><input type="checkbox"> <span contenteditable="true">Clear SD cards</span></div>
+        <div class="task"><input type="checkbox"> <span contenteditable="true">Backup footage</span></div>
+        <div class="task"><input type="checkbox"> <span contenteditable="true">Prepare camera bag</span></div>
+        <div class="task"><input type="checkbox"> <span contenteditable="true">Update client folder</span></div>
       </div>
 
-      <div class="day" data-day="Friday">
-        <div class="dayhead">FRI <span contenteditable="true">11</span></div>
-        <div class="event personal" contenteditable="true">7:00 AM 🏋️ Gym</div>
-        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
-        <div class="event work" contenteditable="true">11:00 AM Client Follow Up</div>
-        <div class="event shoot" contenteditable="true">2:00 PM 📹 Record Content</div>
-        <div class="event content" contenteditable="true">5:00 PM 📱 Content Drop</div>
-        <div class="event personal" contenteditable="true">8:00 PM 👑 Queen Time</div>
+      <div class="panel sideBox legend">
+        <h3>🎨 LEGEND</h3>
+        <div><span class="dot" style="background:#7fc653"></span>Shoots</div>
+        <div><span class="dot" style="background:#d4a638"></span>Editing</div>
+        <div><span class="dot" style="background:#2ca0a0"></span>Content</div>
+        <div><span class="dot" style="background:#3278d2"></span>Work / School</div>
+        <div><span class="dot" style="background:#9750be"></span>Personal</div>
+        <div><span class="dot" style="background:#c83c32"></span>Deadline</div>
       </div>
+    </aside>
 
-      <div class="day" data-day="Saturday">
-        <div class="dayhead">SAT <span contenteditable="true">12</span></div>
-        <div class="event personal" contenteditable="true">8:00 AM 🏋️ Workout</div>
-        <div class="event personal" contenteditable="true">10:00 AM 👦 Isaiah Time</div>
-        <div class="event shoot" contenteditable="true">12:00 PM 🎥 Shoot Day</div>
-        <div class="event content" contenteditable="true">4:00 PM Backup Files</div>
-        <div class="event personal" contenteditable="true">7:00 PM Family / Queen Time</div>
-      </div>
+  </div>
 
-      <div class="day" data-day="Sunday">
-        <div class="dayhead">SUN <span contenteditable="true">13</span></div>
-        <div class="event personal" contenteditable="true">8:00 AM 🧘 Meditation</div>
-        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
-        <div class="event personal" contenteditable="true">11:00 AM 🌱 Water Plants</div>
-        <div class="event content" contenteditable="true">1:00 PM Plan Next Week</div>
-        <div class="event editing" contenteditable="true">3:00 PM ✍️ Writing Time</div>
-        <div class="event personal" contenteditable="true">7:00 PM Reset / Recharge</div>
-      </div>
-    </div>
-
-    <div class="footer" contenteditable="true">
-      VISION • EXECUTION • LEGACY — SHANE
-    </div>
-  </main>
-
-  <aside class="rightcol panel">
-    <div class="sidecard">
-      <h3>🎯 TODAY'S FOCUS</h3>
-      <div contenteditable="true">
-        Finish the most important scene of the day first.<br><br>
-        Record. Edit. Organize. Repeat.
-      </div>
-    </div>
-
-    <div class="sidecard">
-      <h3>✅ TASKS</h3>
-      <div class="task"><input type="checkbox"> <span contenteditable="true">Charge batteries</span></div>
-      <div class="task"><input type="checkbox"> <span contenteditable="true">Clear SD cards</span></div>
-      <div class="task"><input type="checkbox"> <span contenteditable="true">Backup footage</span></div>
-      <div class="task"><input type="checkbox"> <span contenteditable="true">Prepare camera bag</span></div>
-      <div class="task"><input type="checkbox"> <span contenteditable="true">Update client folder</span></div>
-    </div>
-
-    <div class="sidecard legend">
-      <h3>🎨 LEGEND</h3>
-      <div><span class="dot" style="background:#7fc653"></span>Shoots</div>
-      <div><span class="dot" style="background:#d4a638"></span>Editing</div>
-      <div><span class="dot" style="background:#2ca0a0"></span>Content</div>
-      <div><span class="dot" style="background:#3278d2"></span>Work / School</div>
-      <div><span class="dot" style="background:#9750be"></span>Personal</div>
-      <div><span class="dot" style="background:#c83c32"></span>Deadline</div>
-    </div>
-  </aside>
+  <div class="footer" contenteditable="true">
+    VISION • EXECUTION • LEGACY — SHANE
+  </div>
 
 </div>
 
 <script>
-const saveKey = "shane-production-schedule-v1";
+const saveKey = "shane-production-schedule-final-v1";
 
-function save(){
-  const editable = [...document.querySelectorAll('[contenteditable="true"]')].map(el => el.innerHTML);
-  const checks = [...document.querySelectorAll('input[type="checkbox"]')].map(el => el.checked);
-  const calendarHTML = document.getElementById("calendar").innerHTML;
+let favorites = [
+  {name:"🧘 Yoga", category:"personal"},
+  {name:"☕ Breakfast", category:"personal"},
+  {name:"🐾 Walk Dog", category:"personal"},
+  {name:"👦 Isaiah Time", category:"personal"},
+  {name:"👑 Queen Time", category:"personal"},
+  {name:"🧘 Meditation", category:"personal"},
+  {name:"💼 Work", category:"work"},
+  {name:"📚 School", category:"work"},
+  {name:"🌱 Water Plants", category:"personal"},
+  {name:"🚴 Bike Ride", category:"personal"},
+  {name:"🏋️ Workout", category:"personal"},
+  {name:"🚗 Running Errands", category:"personal"},
+  {name:"🎬 Prepare Record Content", category:"shoot"},
+  {name:"📹 Record Content", category:"shoot"},
+  {name:"🎙️ Record Audio", category:"content"},
+  {name:"✂️ Editing Time", category:"editing"},
+  {name:"✍️ Writing Time", category:"content"}
+];
 
-  localStorage.setItem(saveKey, JSON.stringify({
-    editable,
-    checks,
-    calendarHTML
-  }));
+function renderFavorites(){
+  const activitySelect = document.getElementById("activitySelect");
+  const quickButtons = document.getElementById("quickButtons");
+
+  activitySelect.innerHTML = "";
+  quickButtons.innerHTML = "";
+
+  favorites.forEach((fav, index)=>{
+    const opt = document.createElement("option");
+    opt.value = fav.name;
+    opt.textContent = fav.name;
+    opt.dataset.category = fav.category;
+    activitySelect.appendChild(opt);
+
+    const btn = document.createElement("button");
+    btn.innerHTML = fav.name + " ✕";
+    btn.onclick = function(){
+      document.getElementById("activitySelect").value = fav.name;
+      document.getElementById("categorySelect").value = fav.category;
+      addEvent();
+    };
+
+    btn.oncontextmenu = function(e){
+      e.preventDefault();
+      favorites.splice(index,1);
+      renderFavorites();
+      save();
+    };
+
+    quickButtons.appendChild(btn);
+  });
 }
 
-function load(){
-  const saved = JSON.parse(localStorage.getItem(saveKey) || "null");
-  if(!saved) return;
+function addFavorite(){
+  const name = document.getElementById("newTaskName").value.trim();
+  const category = document.getElementById("newTaskCategory").value;
 
-  if(saved.calendarHTML){
-    document.getElementById("calendar").innerHTML = saved.calendarHTML;
-  }
+  if(!name) return;
 
-  document.querySelectorAll('[contenteditable="true"]').forEach((el,i)=>{
-    if(saved.editable && saved.editable[i] !== undefined){
-      el.innerHTML = saved.editable[i];
-    }
-  });
-
-  document.querySelectorAll('input[type="checkbox"]').forEach((el,i)=>{
-    if(saved.checks && saved.checks[i] !== undefined){
-      el.checked = saved.checks[i];
-    }
-  });
+  favorites.push({name, category});
+  document.getElementById("newTaskName").value = "";
+  renderFavorites();
+  save();
 }
 
 function addEvent(){
@@ -506,22 +531,152 @@ function addEvent(){
   const activity = document.getElementById("activitySelect").value;
   const category = document.getElementById("categorySelect").value;
 
-  const dayBox = document.querySelector(`.day[data-day="${day}"]`);
+  const dayBox = document.querySelector(`.day[data-day="${day}"] .eventList`);
   if(!dayBox) return;
 
   const event = document.createElement("div");
   event.className = "event " + category;
   event.contentEditable = "true";
-  event.innerHTML = time + " " + activity;
+  event.draggable = true;
+  event.innerHTML = `
+    <div>${time} ${activity}</div>
+    <div class="eventBtns">
+      <button onclick="duplicateEvent(this)">Copy</button>
+      <button onclick="deleteEvent(this)">Delete</button>
+    </div>
+  `;
 
+  makeDraggable(event);
   dayBox.appendChild(event);
+  updateToday();
   save();
 }
 
-function quickAdd(activity, category){
-  document.getElementById("activitySelect").value = activity;
-  document.getElementById("categorySelect").value = category;
-  addEvent();
+function duplicateEvent(btn){
+  const event = btn.closest(".event");
+  const clone = event.cloneNode(true);
+  clone.contentEditable = "true";
+  clone.draggable = true;
+  makeDraggable(clone);
+  event.parentElement.appendChild(clone);
+  updateToday();
+  save();
+}
+
+function deleteEvent(btn){
+  btn.closest(".event").remove();
+  updateToday();
+  save();
+}
+
+function clearDay(day){
+  const list = document.querySelector(`.day[data-day="${day}"] .eventList`);
+  if(list) list.innerHTML = "";
+  updateToday();
+  save();
+}
+
+function clearWeek(){
+  if(!confirm("Clear the whole week?")) return;
+  document.querySelectorAll(".eventList").forEach(list=>list.innerHTML="");
+  updateToday();
+  save();
+}
+
+function makeDraggable(event){
+  event.addEventListener("dragstart", e=>{
+    event.classList.add("dragging");
+    e.dataTransfer.setData("text/plain","dragging");
+  });
+
+  event.addEventListener("dragend", ()=>{
+    event.classList.remove("dragging");
+    updateToday();
+    save();
+  });
+}
+
+document.querySelectorAll(".eventList").forEach(list=>{
+  list.addEventListener("dragover", e=>{
+    e.preventDefault();
+    const dragging = document.querySelector(".dragging");
+    if(dragging && list !== dragging.parentElement){
+      list.appendChild(dragging);
+    }
+  });
+});
+
+function updateToday(){
+  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const today = days[new Date().getDay()];
+  const list = document.querySelector(`.day[data-day="${today}"] .eventList`);
+  const todayList = document.getElementById("todayList");
+
+  if(!list || !todayList) return;
+
+  const events = [...list.querySelectorAll(".event")];
+
+  if(events.length === 0){
+    todayList.innerHTML = `<div class="todayItem">No events added for today yet.</div>`;
+    return;
+  }
+
+  todayList.innerHTML = events.map(e=>{
+    const text = e.innerText.replace("Copy","").replace("Delete","").trim();
+    return `<div class="todayItem">${text}</div>`;
+  }).join("");
+}
+
+function save(){
+  const data = {
+    calendar: document.getElementById("calendar").innerHTML,
+    editable: [...document.querySelectorAll('[contenteditable="true"]')].map(el=>el.innerHTML),
+    checks: [...document.querySelectorAll('input[type="checkbox"]')].map(el=>el.checked),
+    favorites
+  };
+
+  localStorage.setItem(saveKey, JSON.stringify(data));
+}
+
+function load(){
+  const data = JSON.parse(localStorage.getItem(saveKey) || "null");
+
+  if(data){
+    if(data.calendar){
+      document.getElementById("calendar").innerHTML = data.calendar;
+    }
+
+    if(data.favorites){
+      favorites = data.favorites;
+    }
+
+    document.querySelectorAll('[contenteditable="true"]').forEach((el,i)=>{
+      if(data.editable && data.editable[i] !== undefined){
+        el.innerHTML = data.editable[i];
+      }
+    });
+
+    document.querySelectorAll('input[type="checkbox"]').forEach((el,i)=>{
+      if(data.checks && data.checks[i] !== undefined){
+        el.checked = data.checks[i];
+      }
+    });
+  }
+
+  document.querySelectorAll(".event").forEach(makeDraggable);
+
+  document.querySelectorAll(".eventList").forEach(list=>{
+    list.addEventListener("dragover", e=>{
+      e.preventDefault();
+      const dragging = document.querySelector(".dragging");
+      if(dragging && list !== dragging.parentElement){
+        list.appendChild(dragging);
+      }
+    });
+  });
+
+  renderFavorites();
+  updateToday();
 }
 
 load();
