@@ -1,182 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Shane Production Schedule</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  background:#050705;
-  color:white;
+  background:#030503;
+  color:#f4f4f4;
   font-family:Arial, sans-serif;
 }
-
 .app{
-  width:100%;
   min-height:100vh;
-  padding:18px;
+  display:grid;
+  grid-template-columns:240px 1fr 260px;
+  gap:12px;
+  padding:10px;
   background:
-    linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.9)),
+    linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.92)),
     url("take5.png") center/cover fixed no-repeat;
 }
-
-.header{
-  border:1px solid #6aad3f;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:16px;
+.panel{
+  border:1px solid #2f6f1f;
+  background:rgba(0,0,0,.65);
+  border-radius:14px;
 }
-
-.brand{
-  color:#d4a638;
-  letter-spacing:4px;
-  font-size:12px;
+.sidebar{padding:18px}
+.logo{
+  color:#7fc653;
+  font-size:22px;
+  letter-spacing:3px;
   font-weight:bold;
 }
-
-h1{
-  margin:8px 0 4px;
-  color:#6aad3f;
-  font-size:34px;
-  letter-spacing:2px;
-}
-
-.tag{
+.logo span{color:#d4a638}
+.small{
   color:#d4a638;
-  letter-spacing:4px;
-  font-size:12px;
+  letter-spacing:3px;
+  font-size:11px;
+  margin-top:8px;
 }
-
-.today{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-bottom:16px;
+.nav{
+  margin-top:28px;
 }
-
-.card{
-  border:1px solid #6aad3f;
-  border-radius:14px;
-  background:rgba(0,0,0,.55);
-  padding:14px;
+.nav div{
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  letter-spacing:1px;
 }
-
-.card h3{
-  color:#6aad3f;
-  margin:0 0 10px;
-  letter-spacing:2px;
+.nav .active{
+  border:1px solid #7fc653;
+  background:rgba(127,198,83,.18);
+  color:#7fc653;
 }
-
-.edit{
-  min-height:90px;
-  outline:none;
+.quote{
+  margin-top:30px;
+  border:1px solid #d4a638;
+  border-radius:12px;
+  padding:16px;
+  text-align:center;
+  color:#7fc653;
   line-height:1.6;
 }
-
-.calendar{
-  border:1px solid #d4a638;
-  border-radius:16px;
-  overflow:hidden;
-  background:rgba(0,0,0,.58);
+.main{padding:0}
+.hero{
+  padding:22px;
+  border-bottom:1px solid rgba(212,166,56,.4);
 }
-
-.week-title{
+h1{
+  color:#7fc653;
+  font-size:38px;
+  letter-spacing:2px;
+  margin:0;
+}
+h1 span{color:#d4a638}
+.subtitle{
+  color:#d4a638;
+  letter-spacing:4px;
+  margin-top:8px;
+  font-size:12px;
+}
+.topgrid{
+  display:grid;
+  grid-template-columns:1.3fr .8fr;
+  gap:12px;
+  padding:12px;
+}
+.card{
+  border:1px solid #2f6f1f;
+  border-radius:12px;
+  padding:14px;
+  background:rgba(0,0,0,.6);
+}
+.card h3{
+  margin:0 0 12px;
+  color:#7fc653;
+  letter-spacing:2px;
+}
+.addrow{
+  display:grid;
+  grid-template-columns:1fr 1fr 1.5fr 1.2fr auto;
+  gap:8px;
+}
+select,button,input{
+  background:#0b0d0b;
+  color:#fff;
+  border:1px solid #d4a638;
+  border-radius:7px;
+  padding:8px;
+}
+button{
+  cursor:pointer;
+  color:#7fc653;
+  font-weight:bold;
+}
+.quick{
+  padding:0 12px 12px;
+}
+.quick button{
+  margin:4px;
+  border-color:#2f6f1f;
+}
+.weekbar{
+  margin:0 12px;
+  padding:12px;
+  border:1px solid #d4a638;
+  border-radius:12px 12px 0 0;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 14px;
-  border-bottom:1px solid rgba(212,166,56,.45);
 }
-
-.week-title h2{
+.weekbar h2{
   margin:0;
-  color:#6aad3f;
+  color:#7fc653;
   letter-spacing:2px;
 }
-
-.days{
+.calendar{
+  margin:0 12px 12px;
+  border:1px solid #d4a638;
+  border-top:none;
+  border-radius:0 0 12px 12px;
   display:grid;
   grid-template-columns:repeat(7,1fr);
+  overflow:hidden;
 }
-
 .day{
   min-height:430px;
-  border-right:1px solid rgba(212,166,56,.35);
-  padding:10px;
+  padding:8px;
+  border-right:1px solid rgba(212,166,56,.25);
 }
-
 .day:last-child{border-right:none}
-
-.day-name{
+.dayhead{
   text-align:center;
-  color:#6aad3f;
+  color:#7fc653;
   font-weight:bold;
   letter-spacing:2px;
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
-
-.date{
-  text-align:center;
+.dayhead span{
+  display:block;
   color:#fff;
-  margin-bottom:12px;
+  font-weight:normal;
+  margin-top:4px;
 }
-
 .event{
-  padding:8px;
-  margin-bottom:8px;
-  border-radius:9px;
-  font-size:13px;
+  border-left:4px solid;
+  border-radius:8px;
+  padding:7px;
+  margin-bottom:7px;
+  font-size:12px;
   line-height:1.35;
   outline:none;
-  border-left:4px solid;
 }
-
-.shoot{background:rgba(106,173,63,.18);border-color:#6aad3f}
-.editing{background:rgba(212,166,56,.18);border-color:#d4a638}
-.client{background:rgba(55,120,200,.18);border-color:#3778c8}
-.personal{background:rgba(140,80,180,.18);border-color:#8c50b4}
-.content{background:rgba(80,170,170,.18);border-color:#50aaaa}
-.deadline{background:rgba(200,60,50,.18);border-color:#c83c32}
-
-.legend{
+.personal{background:rgba(151,80,190,.18);border-color:#9750be}
+.editing{background:rgba(212,166,56,.2);border-color:#d4a638}
+.content{background:rgba(44,160,160,.2);border-color:#2ca0a0}
+.work{background:rgba(50,120,210,.2);border-color:#3278d2}
+.shoot{background:rgba(127,198,83,.2);border-color:#7fc653}
+.deadline{background:rgba(200,60,50,.2);border-color:#c83c32}
+.addday{
+  color:#7fc653;
+  font-size:12px;
+  text-align:center;
+  margin-top:8px;
+  cursor:pointer;
+}
+.rightcol{padding:12px}
+.sidecard{
+  border:1px solid #d4a638;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+  background:rgba(0,0,0,.65);
+}
+.sidecard h3{
+  margin:0 0 12px;
+  color:#d4a638;
+  letter-spacing:2px;
+}
+.task{
   display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-top:14px;
+  gap:8px;
+  margin:9px 0;
   font-size:13px;
 }
-
+.legend div{
+  margin:10px 0;
+}
 .dot{
+  display:inline-block;
   width:12px;
   height:12px;
   border-radius:50%;
-  display:inline-block;
-  margin-right:6px;
+  margin-right:8px;
 }
-
 .footer{
-  margin-top:16px;
-  border:1px solid #6aad3f;
-  border-radius:14px;
-  padding:14px;
+  margin:12px;
+  padding:16px;
+  border:1px solid #2f6f1f;
+  border-radius:12px;
   text-align:center;
-  color:#d4a638;
-  letter-spacing:5px;
+  color:#7fc653;
+  letter-spacing:6px;
 }
-
 [contenteditable="true"]:focus{
   background:rgba(255,255,255,.08);
-  border-radius:6px;
+  border-radius:5px;
 }
-
-@media(max-width:900px){
-  .today{grid-template-columns:1fr}
-  .days{grid-template-columns:1fr}
-  .day{min-height:auto;border-right:none;border-bottom:1px solid rgba(212,166,56,.35)}
+@media(max-width:1000px){
+  .app{grid-template-columns:1fr}
+  .calendar{grid-template-columns:1fr}
+  .day{min-height:auto;border-right:none;border-bottom:1px solid rgba(212,166,56,.25)}
+  .addrow{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -185,158 +243,291 @@ h1{
 
 <div class="app">
 
-  <div class="header">
-    <div class="brand" contenteditable="true">FUMAR FILM PRODUCTION</div>
-    <h1 contenteditable="true">🎬 SHANE’S PRODUCTION SCHEDULE</h1>
-    <div class="tag" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
-  </div>
+  <aside class="sidebar panel">
+    <div class="logo" contenteditable="true">FUMAR FILM <span>PRODUCTION</span></div>
+    <div class="small" contenteditable="true">PLAN. SHOOT. EDIT. REPEAT.</div>
 
-  <div class="today">
-    <div class="card">
-      <h3>📅 TODAY’S SCHEDULE</h3>
-      <div class="edit" contenteditable="true">
-7:00 AM — Meditation<br>
-7:30 AM — Breakfast<br>
-8:00 AM — Walk the Dog<br>
-9:00 AM — Work / School<br>
-12:00 PM — Isaiah Time<br>
-2:00 PM — Editing Time<br>
-6:00 PM — Queen Time
-      </div>
+    <div class="nav">
+      <div class="active">🎬 Production Schedule</div>
+      <div>🎥 Shoots</div>
+      <div>✂️ Editing</div>
+      <div>👥 Clients</div>
+      <div>📱 Content Drops</div>
+      <div>🎞️ Editing Queue</div>
+      <div>💼 Equipment / Prep</div>
+      <div>📍 Locations</div>
+      <div>💰 Finances</div>
+      <div>📝 Notes</div>
     </div>
 
-    <div class="card">
-      <h3>🎯 FOCUS</h3>
-      <div class="edit" contenteditable="true">
-Lock in. Stay disciplined.<br>
-Create without limits.<br>
-Every day is footage. Make it count.
-      </div>
+    <div class="quote" contenteditable="true">
+      LOCK IN.<br>
+      STAY DISCIPLINED.<br>
+      CREATE WITHOUT LIMITS.<br><br>
+      — SHANE
     </div>
-  </div>
+  </aside>
 
-  <div class="calendar">
-    <div class="week-title">
-      <h2>THIS WEEK</h2>
+  <main class="main panel">
+    <div class="hero">
+      <h1 contenteditable="true">🎬 PRODUCTION <span>SCHEDULE</span></h1>
+      <div class="subtitle" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
+    </div>
+
+    <div class="topgrid">
+      <div class="card">
+        <h3>🎬 ADD TO SCHEDULE</h3>
+
+        <div class="addrow">
+          <select id="daySelect">
+            <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+            <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+          </select>
+
+          <select id="timeSelect">
+            <option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option>
+            <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option>
+            <option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option>
+            <option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option>
+            <option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
+          </select>
+
+          <select id="activitySelect">
+            <option>🧘 Meditation</option>
+            <option>☕ Breakfast</option>
+            <option>🐾 Walk the Dog</option>
+            <option>👦 Isaiah Time</option>
+            <option>👑 Queen Time</option>
+            <option>🧘 Yoga</option>
+            <option>💼 Work</option>
+            <option>📚 School</option>
+            <option>🌱 Water Plants</option>
+            <option>🚴 Bike Riding</option>
+            <option>🏋️ Workout</option>
+            <option>🏃 Gym</option>
+            <option>🚗 Running Errands</option>
+            <option>🎬 Prepare Record Content</option>
+            <option>📹 Record Content</option>
+            <option>🎙️ Record Audio</option>
+            <option>✂️ Editing Time</option>
+            <option>✍️ Writing Time</option>
+          </select>
+
+          <select id="categorySelect">
+            <option value="personal">💜 Personal</option>
+            <option value="editing">🟡 Editing</option>
+            <option value="content">🟦 Content</option>
+            <option value="work">🔵 Work / School</option>
+            <option value="shoot">🟢 Shoot</option>
+            <option value="deadline">🔴 Deadline</option>
+          </select>
+
+          <button onclick="addEvent()">+ ADD</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📅 TODAY'S SCHEDULE</h3>
+        <div id="todayList" contenteditable="true">
+          7:00 AM 🧘 Meditation<br>
+          8:00 AM ☕ Breakfast<br>
+          9:00 AM 🐾 Walk the Dog<br>
+          12:00 PM 💼 Work / School<br>
+          3:00 PM 🎬 Prepare Record Content<br>
+          7:00 PM ✂️ Editing Time<br>
+          9:00 PM 👑 Queen Time
+        </div>
+      </div>
+    </div>    <div class="quick">
+      <button onclick="quickAdd('🧘 Yoga','personal')">🧘 Yoga</button>
+      <button onclick="quickAdd('☕ Breakfast','personal')">☕ Breakfast</button>
+      <button onclick="quickAdd('🐾 Walk the Dog','personal')">🐾 Dog</button>
+      <button onclick="quickAdd('👦 Isaiah Time','personal')">👦 Isaiah</button>
+      <button onclick="quickAdd('👑 Queen Time','personal')">👑 Queen</button>
+      <button onclick="quickAdd('🎬 Record Content','shoot')">🎬 Record</button>
+      <button onclick="quickAdd('🎙️ Record Audio','content')">🎙️ Audio</button>
+      <button onclick="quickAdd('✂️ Editing Time','editing')">✂️ Edit</button>
+      <button onclick="quickAdd('💼 Work','work')">💼 Work</button>
+      <button onclick="quickAdd('🏋️ Gym','personal')">🏋️ Gym</button>
+      <button onclick="quickAdd('🚴 Bike Riding','personal')">🚴 Bike</button>
+      <button onclick="quickAdd('🌱 Water Plants','personal')">🌱 Plants</button>
+    </div>
+
+    <div class="weekbar">
+      <h2 contenteditable="true">THIS WEEK</h2>
       <div contenteditable="true">JULY 7 - JULY 13</div>
     </div>
 
-    <div class="days">
-
-      <div class="day">
-        <div class="day-name">MON</div>
-        <div class="date" contenteditable="true">7</div>
-        <div class="event personal" contenteditable="true">7AM Meditation</div>
-        <div class="event personal" contenteditable="true">8AM Yoga</div>
-        <div class="event personal" contenteditable="true">9AM Breakfast</div>
-        <div class="event client" contenteditable="true">12PM Work / School</div>
-        <div class="event content" contenteditable="true">3PM Prepare Record Content</div>
-        <div class="event editing" contenteditable="true">7PM Editing Time</div>
+    <div class="calendar" id="calendar">
+      <div class="day" data-day="Monday">
+        <div class="dayhead">MON <span contenteditable="true">7</span></div>
+        <div class="event personal" contenteditable="true">7:00 AM 🧘 Meditation</div>
+        <div class="event personal" contenteditable="true">8:00 AM ☕ Breakfast</div>
+        <div class="event work" contenteditable="true">12:00 PM 💼 Work / School</div>
+        <div class="event content" contenteditable="true">3:00 PM 🎬 Prepare Record Content</div>
+        <div class="event editing" contenteditable="true">7:00 PM ✂️ Editing Time</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">TUE</div>
-        <div class="date" contenteditable="true">8</div>
-        <div class="event personal" contenteditable="true">7AM Walk the Dog</div>
-        <div class="event personal" contenteditable="true">8AM Breakfast</div>
-        <div class="event client" contenteditable="true">10AM Running Errands</div>
-        <div class="event shoot" contenteditable="true">1PM Record Content</div>
-        <div class="event content" contenteditable="true">4PM Record Audio</div>
-        <div class="event personal" contenteditable="true">7PM Isaiah Time</div>
+      <div class="day" data-day="Tuesday">
+        <div class="dayhead">TUE <span contenteditable="true">8</span></div>
+        <div class="event personal" contenteditable="true">7:00 AM 🐾 Walk the Dog</div>
+        <div class="event personal" contenteditable="true">8:00 AM ☕ Breakfast</div>
+        <div class="event personal" contenteditable="true">10:00 AM 🚗 Running Errands</div>
+        <div class="event shoot" contenteditable="true">1:00 PM 📹 Record Content</div>
+        <div class="event content" contenteditable="true">4:00 PM 🎙️ Record Audio</div>
+        <div class="event personal" contenteditable="true">7:00 PM 👦 Isaiah Time</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">WED</div>
-        <div class="date" contenteditable="true">9</div>
-        <div class="event personal" contenteditable="true">7AM Meditation</div>
-        <div class="event personal" contenteditable="true">8AM Water Plants</div>
-        <div class="event client" contenteditable="true">10AM Work / School</div>
-        <div class="event editing" contenteditable="true">2PM Editing Time</div>
-        <div class="event content" contenteditable="true">5PM Writing Time</div>
-        <div class="event personal" contenteditable="true">8PM Queen Time</div>
+      <div class="day" data-day="Wednesday">
+        <div class="dayhead">WED <span contenteditable="true">9</span></div>
+        <div class="event personal" contenteditable="true">7:00 AM 🧘 Meditation</div>
+        <div class="event personal" contenteditable="true">8:00 AM 🌱 Water Plants</div>
+        <div class="event work" contenteditable="true">10:00 AM 💼 Work / School</div>
+        <div class="event editing" contenteditable="true">2:00 PM ✂️ Editing Time</div>
+        <div class="event content" contenteditable="true">5:00 PM ✍️ Writing Time</div>
+        <div class="event personal" contenteditable="true">8:00 PM 👑 Queen Time</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">THU</div>
-        <div class="date" contenteditable="true">10</div>
-        <div class="event personal" contenteditable="true">7AM Bike Riding</div>
-        <div class="event personal" contenteditable="true">9AM Breakfast</div>
-        <div class="event client" contenteditable="true">12PM Work / School</div>
-        <div class="event shoot" contenteditable="true">3PM Shoot Prep</div>
-        <div class="event content" contenteditable="true">6PM Record Audio</div>
-        <div class="event editing" contenteditable="true">8PM Edit Current Project</div>
+      <div class="day" data-day="Thursday">
+        <div class="dayhead">THU <span contenteditable="true">10</span></div>
+        <div class="event personal" contenteditable="true">7:00 AM 🚴 Bike Riding</div>
+        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
+        <div class="event work" contenteditable="true">12:00 PM 💼 Work / School</div>
+        <div class="event shoot" contenteditable="true">3:00 PM 🎬 Shoot Prep</div>
+        <div class="event content" contenteditable="true">6:00 PM 🎙️ Record Audio</div>
+        <div class="event editing" contenteditable="true">8:00 PM ✂️ Edit Current Project</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">FRI</div>
-        <div class="date" contenteditable="true">11</div>
-        <div class="event personal" contenteditable="true">7AM Gym</div>
-        <div class="event personal" contenteditable="true">9AM Breakfast</div>
-        <div class="event client" contenteditable="true">11AM Client Follow Up</div>
-        <div class="event shoot" contenteditable="true">2PM Record Content</div>
-        <div class="event content" contenteditable="true">5PM Content Drop</div>
-        <div class="event personal" contenteditable="true">8PM Queen Time</div>
+      <div class="day" data-day="Friday">
+        <div class="dayhead">FRI <span contenteditable="true">11</span></div>
+        <div class="event personal" contenteditable="true">7:00 AM 🏋️ Gym</div>
+        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
+        <div class="event work" contenteditable="true">11:00 AM Client Follow Up</div>
+        <div class="event shoot" contenteditable="true">2:00 PM 📹 Record Content</div>
+        <div class="event content" contenteditable="true">5:00 PM 📱 Content Drop</div>
+        <div class="event personal" contenteditable="true">8:00 PM 👑 Queen Time</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">SAT</div>
-        <div class="date" contenteditable="true">12</div>
-        <div class="event personal" contenteditable="true">8AM Workout</div>
-        <div class="event personal" contenteditable="true">10AM Isaiah Time</div>
-        <div class="event shoot" contenteditable="true">12PM Shoot Day</div>
-        <div class="event content" contenteditable="true">4PM Backup Files</div>
-        <div class="event personal" contenteditable="true">7PM Family / Queen Time</div>
+      <div class="day" data-day="Saturday">
+        <div class="dayhead">SAT <span contenteditable="true">12</span></div>
+        <div class="event personal" contenteditable="true">8:00 AM 🏋️ Workout</div>
+        <div class="event personal" contenteditable="true">10:00 AM 👦 Isaiah Time</div>
+        <div class="event shoot" contenteditable="true">12:00 PM 🎥 Shoot Day</div>
+        <div class="event content" contenteditable="true">4:00 PM Backup Files</div>
+        <div class="event personal" contenteditable="true">7:00 PM Family / Queen Time</div>
       </div>
 
-      <div class="day">
-        <div class="day-name">SUN</div>
-        <div class="date" contenteditable="true">13</div>
-        <div class="event personal" contenteditable="true">8AM Meditation</div>
-        <div class="event personal" contenteditable="true">9AM Breakfast</div>
-        <div class="event personal" contenteditable="true">11AM Water Plants</div>
-        <div class="event content" contenteditable="true">1PM Plan Next Week</div>
-        <div class="event editing" contenteditable="true">3PM Writing Time</div>
-        <div class="event personal" contenteditable="true">7PM Reset / Recharge</div>
+      <div class="day" data-day="Sunday">
+        <div class="dayhead">SUN <span contenteditable="true">13</span></div>
+        <div class="event personal" contenteditable="true">8:00 AM 🧘 Meditation</div>
+        <div class="event personal" contenteditable="true">9:00 AM ☕ Breakfast</div>
+        <div class="event personal" contenteditable="true">11:00 AM 🌱 Water Plants</div>
+        <div class="event content" contenteditable="true">1:00 PM Plan Next Week</div>
+        <div class="event editing" contenteditable="true">3:00 PM ✍️ Writing Time</div>
+        <div class="event personal" contenteditable="true">7:00 PM Reset / Recharge</div>
       </div>
-
     </div>
-  </div>
 
-  <div class="legend">
-    <div><span class="dot" style="background:#6aad3f"></span>Shoots</div>
-    <div><span class="dot" style="background:#d4a638"></span>Editing</div>
-    <div><span class="dot" style="background:#3778c8"></span>Work / Clients</div>
-    <div><span class="dot" style="background:#50aaaa"></span>Content</div>
-    <div><span class="dot" style="background:#8c50b4"></span>Personal</div>
-    <div><span class="dot" style="background:#c83c32"></span>Deadlines</div>
-  </div>
+    <div class="footer" contenteditable="true">
+      VISION • EXECUTION • LEGACY — SHANE
+    </div>
+  </main>
 
-  <div class="footer" contenteditable="true">
-    VISION • EXECUTION • LEGACY — SHANE
-  </div>
+  <aside class="rightcol panel">
+    <div class="sidecard">
+      <h3>🎯 TODAY'S FOCUS</h3>
+      <div contenteditable="true">
+        Finish the most important scene of the day first.<br><br>
+        Record. Edit. Organize. Repeat.
+      </div>
+    </div>
+
+    <div class="sidecard">
+      <h3>✅ TASKS</h3>
+      <div class="task"><input type="checkbox"> <span contenteditable="true">Charge batteries</span></div>
+      <div class="task"><input type="checkbox"> <span contenteditable="true">Clear SD cards</span></div>
+      <div class="task"><input type="checkbox"> <span contenteditable="true">Backup footage</span></div>
+      <div class="task"><input type="checkbox"> <span contenteditable="true">Prepare camera bag</span></div>
+      <div class="task"><input type="checkbox"> <span contenteditable="true">Update client folder</span></div>
+    </div>
+
+    <div class="sidecard legend">
+      <h3>🎨 LEGEND</h3>
+      <div><span class="dot" style="background:#7fc653"></span>Shoots</div>
+      <div><span class="dot" style="background:#d4a638"></span>Editing</div>
+      <div><span class="dot" style="background:#2ca0a0"></span>Content</div>
+      <div><span class="dot" style="background:#3278d2"></span>Work / School</div>
+      <div><span class="dot" style="background:#9750be"></span>Personal</div>
+      <div><span class="dot" style="background:#c83c32"></span>Deadline</div>
+    </div>
+  </aside>
 
 </div>
 
 <script>
-const key = "shane-production-calendar-v1";
+const saveKey = "shane-production-schedule-v1";
 
 function save(){
-  const edits = [...document.querySelectorAll('[contenteditable="true"]')].map(el => el.innerHTML);
-  localStorage.setItem(key, JSON.stringify(edits));
+  const editable = [...document.querySelectorAll('[contenteditable="true"]')].map(el => el.innerHTML);
+  const checks = [...document.querySelectorAll('input[type="checkbox"]')].map(el => el.checked);
+  const calendarHTML = document.getElementById("calendar").innerHTML;
+
+  localStorage.setItem(saveKey, JSON.stringify({
+    editable,
+    checks,
+    calendarHTML
+  }));
 }
 
 function load(){
-  const saved = JSON.parse(localStorage.getItem(key) || "null");
+  const saved = JSON.parse(localStorage.getItem(saveKey) || "null");
   if(!saved) return;
 
+  if(saved.calendarHTML){
+    document.getElementById("calendar").innerHTML = saved.calendarHTML;
+  }
+
   document.querySelectorAll('[contenteditable="true"]').forEach((el,i)=>{
-    if(saved[i] !== undefined) el.innerHTML = saved[i];
+    if(saved.editable && saved.editable[i] !== undefined){
+      el.innerHTML = saved.editable[i];
+    }
   });
+
+  document.querySelectorAll('input[type="checkbox"]').forEach((el,i)=>{
+    if(saved.checks && saved.checks[i] !== undefined){
+      el.checked = saved.checks[i];
+    }
+  });
+}
+
+function addEvent(){
+  const day = document.getElementById("daySelect").value;
+  const time = document.getElementById("timeSelect").value;
+  const activity = document.getElementById("activitySelect").value;
+  const category = document.getElementById("categorySelect").value;
+
+  const dayBox = document.querySelector(`.day[data-day="${day}"]`);
+  if(!dayBox) return;
+
+  const event = document.createElement("div");
+  event.className = "event " + category;
+  event.contentEditable = "true";
+  event.innerHTML = time + " " + activity;
+
+  dayBox.appendChild(event);
+  save();
+}
+
+function quickAdd(activity, category){
+  document.getElementById("activitySelect").value = activity;
+  document.getElementById("categorySelect").value = category;
+  addEvent();
 }
 
 load();
 
 document.addEventListener("input", save);
+document.addEventListener("change", save);
 </script>
 
 </body>
