@@ -1,376 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shane Production Schedule</title>
-
-<style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:#030503;
-  color:#fff;
-  font-family:Arial, sans-serif;
-}
-
-.app{
-  min-height:100vh;
-  padding:14px;
-  background:
-    linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.92)),
-    url("take5.png") center/cover fixed no-repeat;
-}
-
-.header{
-  border:1px solid #d4a638;
-  border-radius:16px;
-  padding:18px;
-  background:rgba(0,0,0,.72);
-  margin-bottom:14px;
-}
-
-.brand{
-  color:#d4a638;
-  letter-spacing:4px;
-  font-size:13px;
-  font-weight:bold;
-}
-
-h1{
-  color:#7fc653;
-  font-size:38px;
-  margin:8px 0 4px;
-  letter-spacing:2px;
-}
-
-.tag{
-  color:#d4a638;
-  letter-spacing:4px;
-  font-size:12px;
-}
-
-.layout{
-  display:grid;
-  grid-template-columns:1fr 280px;
-  gap:14px;
-}
-
-.panel{
-  border:1px solid #d4a638;
-  border-radius:14px;
-  background:rgba(0,0,0,.72);
-  padding:14px;
-}
-
-.panel h3{
-  color:#7fc653;
-  margin:0 0 12px;
-  letter-spacing:2px;
-}
-
-.controls{
-  margin-bottom:14px;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr 1.4fr 1fr auto;
-  gap:8px;
-}
-
-select,input,button,textarea{
-  background:#070907;
-  color:white;
-  border:1px solid #d4a638;
-  border-radius:8px;
-  padding:9px;
-}
-
-button{
-  cursor:pointer;
-  color:#7fc653;
-  font-weight:bold;
-}
-
-button:hover{
-  background:rgba(127,198,83,.18);
-}
-
-.quick{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-
-.quick button{
-  border-color:#7fc653;
-  color:#fff;
-  background:rgba(127,198,83,.14);
-}
-
-.favoriteAdd{
-  display:grid;
-  grid-template-columns:1fr 1fr auto;
-  gap:8px;
-  margin-top:12px;
-}
-
-.weekbar{
-  border:1px solid #d4a638;
-  border-radius:14px 14px 0 0;
-  padding:12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,0,0,.7);
-}
-
-.weekbar h2{
-  color:#7fc653;
-  margin:0;
-  letter-spacing:2px;
-}
-
-.weekActions{
-  display:flex;
-  gap:8px;
-}
-
-.clearWeek{
-  border-color:#c83c32;
-  color:#ff9a90;
-}
-
-.calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  border:1px solid #d4a638;
-  border-top:none;
-  border-radius:0 0 14px 14px;
-  overflow:hidden;
-  background:rgba(0,0,0,.62);
-}
-
-.day{
-  min-height:470px;
-  border-right:1px solid rgba(212,166,56,.35);
-  padding:8px;
-}
-
-.day:last-child{border-right:none}
-
-.dayhead{
-  color:#7fc653;
-  text-align:center;
-  font-weight:bold;
-  letter-spacing:2px;
-  margin-bottom:8px;
-}
-
-.dayhead span{
-  display:block;
-  color:#d4a638;
-  font-size:24px;
-  margin-top:4px;
-}
-
-.eventList{
-  min-height:360px;
-  padding-bottom:8px;
-}
-
-.event{
-  border-left:4px solid;
-  border-radius:8px;
-  padding:7px;
-  margin-bottom:7px;
-  font-size:12px;
-  line-height:1.35;
-  outline:none;
-  position:relative;
-}
-
-.event:hover .eventBtns{
-  display:flex;
-}
-
-.eventBtns{
-  display:none;
-  gap:5px;
-  margin-top:6px;
-}
-
-.eventBtns button{
-  font-size:10px;
-  padding:4px 6px;
-}
-
-.personal{background:rgba(151,80,190,.18);border-color:#9750be}
-.editing{background:rgba(212,166,56,.2);border-color:#d4a638}
-.content{background:rgba(44,160,160,.2);border-color:#2ca0a0}
-.work{background:rgba(50,120,210,.2);border-color:#3278d2}
-.shoot{background:rgba(127,198,83,.2);border-color:#7fc653}
-.deadline{background:rgba(200,60,50,.2);border-color:#c83c32}
-
-.clearBtn{
-  width:100%;
-  margin-top:8px;
-  border-color:#c83c32;
-  color:#ff9a90;
-  background:rgba(200,60,50,.12);
-  font-size:12px;
-}
-
-.sideBox{
-  margin-bottom:14px;
-}
-
-.todayItem{
-  border-left:4px solid #7fc653;
-  padding:7px;
-  margin-bottom:7px;
-  background:rgba(127,198,83,.14);
-  border-radius:8px;
-  font-size:12px;
-}
-
-.task{
-  display:flex;
-  gap:8px;
-  margin:9px 0;
-  font-size:13px;
-}
-
-.legend div{
-  margin:9px 0;
-}
-
-.dot{
-  display:inline-block;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  margin-right:8px;
-}
-
-.footer{
-  margin-top:14px;
-  border:1px solid #7fc653;
-  border-radius:14px;
-  padding:14px;
-  color:#d4a638;
-  text-align:center;
-  letter-spacing:5px;
-  background:rgba(0,0,0,.65);
-}
-
-[contenteditable="true"]:focus{
-  background:rgba(255,255,255,.08);
-  border-radius:5px;
-}
-
-@media(max-width:1000px){
-  .layout{grid-template-columns:1fr}
-  .row,.favoriteAdd{grid-template-columns:1fr}
-  .calendar{grid-template-columns:1fr}
-  .day{
-    min-height:auto;
-    border-right:none;
-    border-bottom:1px solid rgba(212,166,56,.35);
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <div class="header">
-    <div class="brand" contenteditable="true">FUMAR FILM PRODUCTION</div>
-    <h1 contenteditable="true">🎬 SHANE’S PRODUCTION SCHEDULE</h1>
-    <div class="tag" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
-  </div>
-
-  <div class="layout">
-
-    <main>
-
-      <div class="panel controls">
-        <h3>🎬 ADD TO SCHEDULE</h3>
-
-        <div class="row">
-          <select id="daySelect">
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-            <option>Sunday</option>
-          </select>
-
-          <select id="timeSelect">
-            <option>7:00 AM</option>
-            <option>8:00 AM</option>
-            <option>9:00 AM</option>
-            <option>10:00 AM</option>
-            <option>11:00 AM</option>
-            <option>12:00 PM</option>
-            <option>1:00 PM</option>
-            <option>2:00 PM</option>
-            <option>3:00 PM</option>
-            <option>4:00 PM</option>
-            <option>5:00 PM</option>
-            <option>6:00 PM</option>
-            <option>7:00 PM</option>
-            <option>8:00 PM</option>
-            <option>9:00 PM</option>
-          </select>
-
-          <select id="activitySelect"></select>
-
-          <select id="categorySelect">
-            <option value="personal">💜 Personal</option>
-            <option value="editing">🟡 Editing</option>
-            <option value="content">🟦 Content</option>
-            <option value="work">🔵 Work / School</option>
-            <option value="shoot">🟢 Shoot</option>
-            <option value="deadline">🔴 Deadline</option>
-          </select>
-
-          <button onclick="addEvent()">+ ADD</button>
-        </div>
-
-        <div class="quick" id="quickButtons"></div>
-
-        <div class="favoriteAdd">
-          <input id="newTaskName" placeholder="Add new favorite task, ex: 🎬 Drone Practice">
-          <select id="newTaskCategory">
-            <option value="personal">💜 Personal</option>
-            <option value="editing">🟡 Editing</option>
-            <option value="content">🟦 Content</option>
-            <option value="work">🔵 Work / School</option>
-            <option value="shoot">🟢 Shoot</option>
-            <option value="deadline">🔴 Deadline</option>
-          </select>
-          <button onclick="addFavorite()">+ ADD TASK</button>
-        </div>
-      </div>
-
-      <div class="weekbar">
-        <h2 contenteditable="true">THIS WEEK</h2>
-        <div contenteditable="true">JULY 7 - JULY 13</div>
-        <div class="weekActions">
-          <button onclick="updateToday()">TODAY</button>
-          <button class="clearWeek" onclick="clearWeek()">CLEAR WEEK</button>
-        </div>
-      </div>
-
-      <div class="calendar" id="calendar">        <div class="day" data-day="Monday">
+        <div class="day" data-day="Monday">
           <div class="dayhead">MON <span contenteditable="true">7</span></div>
           <div class="eventList"></div>
           <button class="clearBtn" onclick="clearDay('Monday')">🗑️ Clear Day</button>
@@ -680,6 +308,280 @@ function load(){
 }
 
 load();
+
+document.addEventListener("input", save);
+document.addEventListener("change", save);
+</script>
+
+</body>
+</html>        <div class="day" data-day="Monday">
+          <div class="dayhead">MON <span contenteditable="true">7</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Monday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Tuesday">
+          <div class="dayhead">TUE <span contenteditable="true">8</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Tuesday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Wednesday">
+          <div class="dayhead">WED <span contenteditable="true">9</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Wednesday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Thursday">
+          <div class="dayhead">THU <span contenteditable="true">10</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Thursday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Friday">
+          <div class="dayhead">FRI <span contenteditable="true">11</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Friday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Saturday">
+          <div class="dayhead">SAT <span contenteditable="true">12</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Saturday')">🗑 Clear Day</button>
+        </div>
+
+        <div class="day" data-day="Sunday">
+          <div class="dayhead">SUN <span contenteditable="true">13</span></div>
+          <div class="eventList"></div>
+          <button class="clearBtn" onclick="clearDay('Sunday')">🗑 Clear Day</button>
+        </div>
+      </div>
+
+      <div class="footer" contenteditable="true">
+        VISION • EXECUTION • LEGACY — SHANE
+      </div>
+
+    </main>
+
+    <aside>
+      <div class="panel sideBox">
+        <h3>📅 TODAY'S SCHEDULE</h3>
+        <div id="todaySchedule"></div>
+      </div>
+
+      <div class="panel sideBox">
+        <h3>🎯 TODAY'S FOCUS</h3>
+        <div contenteditable="true">
+          Finish the most important scene of the day first.<br><br>
+          Record. Edit. Organize. Repeat.
+        </div>
+      </div>
+
+      <div class="panel sideBox">
+        <h3>✅ TASKS</h3>
+        <div class="task"><input type="checkbox"><span contenteditable="true">Charge batteries</span></div>
+        <div class="task"><input type="checkbox"><span contenteditable="true">Clear SD cards</span></div>
+        <div class="task"><input type="checkbox"><span contenteditable="true">Backup footage</span></div>
+        <div class="task"><input type="checkbox"><span contenteditable="true">Prepare camera bag</span></div>
+      </div>
+
+      <div class="panel legend">
+        <h3>🎨 LEGEND</h3>
+        <div><span class="dot" style="background:#7fc653"></span>Shoots</div>
+        <div><span class="dot" style="background:#d4a638"></span>Editing</div>
+        <div><span class="dot" style="background:#2ca0a0"></span>Content</div>
+        <div><span class="dot" style="background:#3278d2"></span>Work / School</div>
+        <div><span class="dot" style="background:#9750be"></span>Personal</div>
+        <div><span class="dot" style="background:#c83c32"></span>Deadline</div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+const saveKey = "shane-production-schedule-final-v1";
+
+let favorites = [
+  {name:"🧘 Yoga", category:"personal"},
+  {name:"☕ Breakfast", category:"personal"},
+  {name:"🐾 Walk Dog", category:"personal"},
+  {name:"👦 Isaiah Time", category:"personal"},
+  {name:"👑 Queen Time", category:"personal"},
+  {name:"🎬 Record Content", category:"shoot"},
+  {name:"🎙️ Record Audio", category:"content"},
+  {name:"✂️ Editing Time", category:"editing"},
+  {name:"💼 Work", category:"work"},
+  {name:"📚 School", category:"work"},
+  {name:"🏋️ Gym", category:"personal"},
+  {name:"🚴 Bike Ride", category:"personal"},
+  {name:"🌱 Water Plants", category:"personal"},
+  {name:"🚗 Running Errands", category:"personal"},
+  {name:"✍️ Writing Time", category:"content"}
+];
+
+function renderFavorites(){
+  const activitySelect = document.getElementById("activitySelect");
+  const quickButtons = document.getElementById("quickButtons");
+
+  activitySelect.innerHTML = "";
+  quickButtons.innerHTML = "";
+
+  favorites.forEach((fav, index)=>{
+    const opt = document.createElement("option");
+    opt.value = fav.name;
+    opt.textContent = fav.name;
+    activitySelect.appendChild(opt);
+
+    const btn = document.createElement("button");
+    btn.innerHTML = fav.name;
+    btn.onclick = () => quickAdd(fav.name, fav.category);
+    quickButtons.appendChild(btn);
+  });
+}
+
+function addFavorite(){
+  const nameInput = document.getElementById("newTaskName");
+  const category = document.getElementById("newTaskCategory").value;
+  const name = nameInput.value.trim();
+
+  if(!name) return;
+
+  favorites.push({name, category});
+  nameInput.value = "";
+  renderFavorites();
+  save();
+}
+
+function addEvent(){
+  const day = document.getElementById("daySelect").value;
+  const time = document.getElementById("timeSelect").value;
+  const activity = document.getElementById("activitySelect").value;
+  const category = document.getElementById("categorySelect").value;
+
+  createEvent(day, time + " " + activity, category);
+}
+
+function quickAdd(activity, category){
+  const day = document.getElementById("daySelect").value;
+  const time = document.getElementById("timeSelect").value;
+  createEvent(day, time + " " + activity, category);
+}
+
+function createEvent(day, text, category){
+  const dayBox = document.querySelector(`.day[data-day="${day}"] .eventList`);
+  if(!dayBox) return;
+
+  const event = document.createElement("div");
+  event.className = "event " + category;
+  event.contentEditable = "true";
+  event.innerHTML = `
+    <div class="eventText">${text}</div>
+    <div class="eventBtns">
+      <button onclick="duplicateEvent(this)">Copy</button>
+      <button onclick="deleteEvent(this)">Delete</button>
+    </div>
+  `;
+
+  dayBox.appendChild(event);
+  save();
+  updateToday();
+}
+
+function deleteEvent(btn){
+  btn.closest(".event").remove();
+  save();
+  updateToday();
+}
+
+function duplicateEvent(btn){
+  const event = btn.closest(".event");
+  const clone = event.cloneNode(true);
+  event.parentElement.appendChild(clone);
+  save();
+  updateToday();
+}
+
+function clearDay(day){
+  const list = document.querySelector(`.day[data-day="${day}"] .eventList`);
+  if(list){
+    list.innerHTML = "";
+    save();
+    updateToday();
+  }
+}
+
+function clearWeek(){
+  document.querySelectorAll(".eventList").forEach(list=>{
+    list.innerHTML = "";
+  });
+  save();
+  updateToday();
+}
+
+function updateToday(){
+  const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const todayName = days[new Date().getDay()];
+  const todayBox = document.querySelector(`.day[data-day="${todayName}"] .eventList`);
+  const todaySchedule = document.getElementById("todaySchedule");
+
+  if(!todayBox || !todaySchedule) return;
+
+  const events = [...todayBox.querySelectorAll(".eventText")];
+
+  if(events.length === 0){
+    todaySchedule.innerHTML = `<div class="todayItem">No events added for today yet.</div>`;
+    return;
+  }
+
+  todaySchedule.innerHTML = events.map(e=>{
+    return `<div class="todayItem">${e.innerText}</div>`;
+  }).join("");
+}
+
+function save(){
+  const data = {
+    favorites,
+    calendar: document.getElementById("calendar").innerHTML,
+    editable: [...document.querySelectorAll('[contenteditable="true"]')].map(el=>el.innerHTML),
+    checks: [...document.querySelectorAll('input[type="checkbox"]')].map(el=>el.checked)
+  };
+
+  localStorage.setItem(saveKey, JSON.stringify(data));
+}
+
+function load(){
+  const saved = JSON.parse(localStorage.getItem(saveKey) || "null");
+  if(!saved) return;
+
+  if(saved.favorites){
+    favorites = saved.favorites;
+  }
+
+  if(saved.calendar){
+    document.getElementById("calendar").innerHTML = saved.calendar;
+  }
+
+  renderFavorites();
+
+  document.querySelectorAll('[contenteditable="true"]').forEach((el,i)=>{
+    if(saved.editable && saved.editable[i] !== undefined){
+      el.innerHTML = saved.editable[i];
+    }
+  });
+
+  document.querySelectorAll('input[type="checkbox"]').forEach((el,i)=>{
+    if(saved.checks && saved.checks[i] !== undefined){
+      el.checked = saved.checks[i];
+    }
+  });
+
+  updateToday();
+}
+
+renderFavorites();
+load();
+updateToday();
 
 document.addEventListener("input", save);
 document.addEventListener("change", save);
