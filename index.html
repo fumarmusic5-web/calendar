@@ -3,284 +3,935 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shane Production Schedule</title>
+<title>Shane Director Schedule</title>
 <style>
+:root{
+  --bg:#050705;
+  --panel:rgba(5,8,5,.88);
+  --panel-soft:rgba(8,12,8,.78);
+  --gold:#d5a928;
+  --green:#8fd13c;
+  --lime:#9ce63d;
+  --text:#f7f4e8;
+  --muted:#aaa99f;
+  --border:rgba(213,169,40,.34);
+  --shadow:0 18px 50px rgba(0,0,0,.34);
+}
 *{box-sizing:border-box}
-body{margin:0;background:#020402;color:#fff;font-family:Arial,sans-serif}
-.app{min-height:100vh;padding:14px;background:linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.92)),url("take5.png") center/cover fixed no-repeat}
-.header,.controls,.weekbar,.calendar,.side,.footer{background:rgba(0,0,0,.72);border:1px solid #d4a638;border-radius:14px}
-.header{padding:18px;margin-bottom:12px}
-.brand{color:#d4a638;letter-spacing:4px;font-size:13px}
-h1{margin:8px 0;color:#7fc653;font-size:38px;letter-spacing:2px}
-.tag{color:#d4a638;letter-spacing:4px;font-size:12px}
-.layout{display:grid;grid-template-columns:1fr 280px;gap:12px}
-.controls{padding:14px;margin-bottom:12px}
-h3{color:#7fc653;margin:0 0 10px;letter-spacing:2px}
-.row,.custom{display:grid;grid-template-columns:1fr 1fr 1.4fr 1fr auto;gap:8px;margin-bottom:10px}
-.custom{grid-template-columns:1fr 1fr auto}
-select,input,button{background:#070907;color:#fff;border:1px solid #d4a638;border-radius:8px;padding:9px}
-button{cursor:pointer;color:#7fc653;font-weight:bold}
-.quick{display:flex;flex-wrap:wrap;gap:7px}
-.quick button{border-color:#7fc653;background:rgba(127,198,83,.14);color:white}
-.weekbar{padding:12px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:center}
-.weekbar h2{margin:0;color:#7fc653}
-.calendar{border-top:none;border-radius:0 0 14px 14px;display:grid;grid-template-columns:repeat(7,1fr);overflow:hidden}
-.day{min-height:420px;border-right:1px solid rgba(212,166,56,.35);padding:8px}
-.day:last-child{border-right:none}
-.dayhead{text-align:center;color:#7fc653;font-weight:bold;letter-spacing:2px;margin-bottom:8px}
-.dayhead span{display:block;color:#d4a638;font-size:24px;margin-top:3px}
-.eventList{min-height:330px}
-.event{border-left:4px solid;border-radius:8px;padding:7px;margin-bottom:7px;font-size:12px;line-height:1.35;outline:none}
-.personal{background:rgba(151,80,190,.18);border-color:#9750be}
-.editing{background:rgba(212,166,56,.2);border-color:#d4a638}
-.content{background:rgba(44,160,160,.2);border-color:#2ca0a0}
-.work{background:rgba(50,120,210,.2);border-color:#3278d2}
-.shoot{background:rgba(127,198,83,.2);border-color:#7fc653}
-.deadline{background:rgba(200,60,50,.2);border-color:#c83c32}
-.eventBtns{margin-top:6px;display:flex;gap:5px}
-.eventBtns button{font-size:10px;padding:4px 6px}
-.clearBtn{width:100%;border-color:#c83c32;color:#ff9a90;background:rgba(200,60,50,.12);font-size:12px}
-.side{padding:14px;margin-bottom:12px}
-.todayItem{border-left:4px solid #7fc653;background:rgba(127,198,83,.14);border-radius:8px;padding:7px;margin-bottom:7px;font-size:12px}
-.task{display:flex;gap:8px;margin:8px 0;font-size:13px}
-.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px}
-.legend div{margin:9px 0}
-.footer{margin-top:12px;padding:14px;text-align:center;color:#d4a638;letter-spacing:5px;border-color:#7fc653}
-[contenteditable=true]:focus{background:rgba(255,255,255,.08);border-radius:5px}
-.clearWeek{border-color:#c83c32;color:#ff9a90}
-@media(max-width:1000px){.layout{grid-template-columns:1fr}.row,.custom{grid-template-columns:1fr}.calendar{grid-template-columns:1fr}.day{min-height:auto;border-right:none;border-bottom:1px solid rgba(212,166,56,.35)}}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  background:#020402;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{
+  min-height:100vh;
+  padding:14px;
+  background:
+    linear-gradient(110deg,rgba(0,0,0,.92),rgba(0,0,0,.73)),
+    url("take5.png") center/cover fixed no-repeat;
+}
+.topbar{
+  display:grid;
+  grid-template-columns:220px 1fr 360px;
+  gap:12px;
+  margin-bottom:12px;
+}
+.card,.calendar-shell,.week-summary{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(12px);
+}
+.brand-card{padding:18px;text-align:center}
+.crown{font-size:34px;color:var(--gold)}
+.brand-name{font-family:Georgia,serif;font-size:28px;letter-spacing:7px;margin-top:4px}
+.brand-sub{font-size:10px;letter-spacing:5px;color:var(--gold)}
+.hero{
+  padding:18px 22px;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.5)),
+    url("take5.png") center/cover no-repeat;
+}
+.hero small{display:block;letter-spacing:2px;color:#ddd}
+.hero h1{margin:2px 0 4px;font-size:34px;letter-spacing:1px}
+.hero h1 span{color:var(--green)}
+.hero p{margin:0;color:var(--gold);letter-spacing:2px;font-size:12px}
+.status-card{padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:center}
+.quote{font-size:13px;line-height:1.5;color:#ddd}
+.quote b{color:var(--green);font-size:24px}
+.clock{text-align:right}
+.clock-time{font-size:36px;font-weight:800}
+.clock-date{font-size:12px;color:var(--muted)}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:220px minmax(0,1fr) 290px;
+  gap:12px;
+}
+.sidebar,.rightbar{display:flex;flex-direction:column;gap:12px}
+.side-card{padding:14px}
+.section-title{
+  color:var(--gold);
+  font-size:13px;
+  letter-spacing:1.5px;
+  margin:0 0 12px;
+  text-transform:uppercase;
+}
+.big-date .dayname{color:var(--green);font-weight:700;letter-spacing:1px}
+.big-date .date{font-size:26px;font-weight:800;margin-top:4px}
+.mini-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;font-size:11px;text-align:center}
+.mini-calendar .head{color:var(--muted)}
+.mini-calendar .cell{padding:6px 0;border-radius:50%}
+.mini-calendar .today{background:var(--green);color:#081004;font-weight:800}
+.project-card{
+  display:grid;
+  grid-template-columns:55px 1fr;
+  gap:10px;
+  align-items:center;
+}
+.project-thumb{
+  width:55px;height:72px;border-radius:8px;
+  background:linear-gradient(145deg,#20180d,#050505);
+  border:1px solid rgba(255,255,255,.08);
+}
+.progress{height:6px;background:#1a1e18;border-radius:99px;overflow:hidden;margin-top:8px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--gold))}
+.primary-btn,.ghost-btn,.danger-btn{
+  border-radius:10px;
+  padding:10px 12px;
+  border:1px solid var(--green);
+  background:rgba(143,209,60,.08);
+  color:var(--green);
+  font-weight:800;
+}
+.ghost-btn{border-color:var(--border);color:var(--text)}
+.danger-btn{border-color:#b9473d;color:#ffaaa2;background:rgba(185,71,61,.08)}
+.navtabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+}
+.navtabs button{
+  border:none;background:transparent;color:#aaa;padding:8px 10px;
+  border-bottom:2px solid transparent;
+}
+.navtabs button.active{color:var(--gold);border-bottom-color:var(--gold)}
+.week-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 16px;border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap;
+}
+.week-title{font-size:18px;font-weight:800}
+.week-controls{display:flex;gap:8px;align-items:center}
+.week-controls button{
+  background:#090c09;color:var(--text);border:1px solid var(--border);
+  border-radius:9px;padding:8px 11px;
+}
+.calendar-wrap{overflow-x:auto}
+.calendar-grid{
+  min-width:980px;
+  display:grid;
+  grid-template-columns:62px repeat(7,1fr);
+}
+.corner,.dayhead,.timecell,.slot{
+  border-right:1px solid rgba(213,169,40,.16);
+  border-bottom:1px solid rgba(213,169,40,.13);
+}
+.corner,.dayhead{
+  position:sticky;top:0;z-index:4;
+  background:rgba(5,8,5,.97);
+}
+.dayhead{padding:12px 5px;text-align:center;font-weight:800}
+.dayhead .num{color:var(--green)}
+.dayhead.today{box-shadow:inset 0 -3px 0 var(--green)}
+.timecell{
+  padding:8px 7px;color:#bbb;text-align:right;font-size:11px;background:rgba(0,0,0,.18)
+}
+.slot{
+  min-height:60px;
+  position:relative;
+  padding:4px;
+  transition:.15s;
+}
+.slot:hover{background:rgba(143,209,60,.04)}
+.slot.drag-over{background:rgba(143,209,60,.12);outline:1px dashed var(--green)}
+.event{
+  position:relative;
+  border-radius:8px;
+  padding:7px 8px;
+  font-size:11px;
+  line-height:1.3;
+  margin-bottom:4px;
+  border:1px solid rgba(255,255,255,.08);
+  border-left:4px solid;
+  cursor:grab;
+  overflow:hidden;
+}
+.event:active{cursor:grabbing}
+.event .event-time{font-weight:800;font-size:10px;opacity:.8}
+.event .event-title{font-weight:700;margin-top:2px}
+.event .event-meta{font-size:10px;opacity:.75;margin-top:3px}
+.event .event-actions{
+  position:absolute;right:4px;top:4px;display:none;gap:3px;
+}
+.event:hover .event-actions{display:flex}
+.event .event-actions button{
+  border:none;background:rgba(0,0,0,.55);color:#fff;border-radius:5px;padding:2px 5px;font-size:10px;
+}
+.cat-personal{background:rgba(132,77,174,.25);border-left-color:#a869d6}
+.cat-editing{background:rgba(213,169,40,.24);border-left-color:var(--gold)}
+.cat-content{background:rgba(35,151,143,.24);border-left-color:#2bb8ac}
+.cat-work{background:rgba(53,103,204,.24);border-left-color:#487edb}
+.cat-shoot{background:rgba(112,179,45,.25);border-left-color:var(--green)}
+.cat-deadline{background:rgba(195,64,55,.25);border-left-color:#d94d42}
+
+.quick-add{
+  margin-top:12px;padding:12px;
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.quick-add button{
+  background:#0a0d0a;border:1px solid var(--border);color:#fff;border-radius:9px;padding:9px 10px;
+}
+.quick-add button:hover{border-color:var(--green);color:var(--green)}
+.quick-label{width:100%;font-size:12px;color:var(--gold);letter-spacing:1px}
+
+.form-grid{display:grid;gap:8px}
+label{font-size:11px;color:#bbb}
+input,select,textarea{
+  width:100%;background:#090c09;color:#fff;border:1px solid var(--border);
+  border-radius:9px;padding:9px;
+}
+textarea{min-height:70px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.check-row input{width:auto}
+.focus-item{
+  display:flex;gap:8px;align-items:center;
+  padding:7px;border-radius:8px;background:rgba(255,255,255,.025);margin-bottom:6px;
+}
+.focus-item input[type=text]{border:none;background:transparent;padding:3px}
+.equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.equip-item{display:flex;align-items:center;gap:7px;font-size:12px}
+.notes{min-height:95px}
+.week-summary{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:1.2fr repeat(5,1fr);
+  overflow:hidden;
+}
+.summary-box{padding:16px;border-right:1px solid var(--border)}
+.summary-box:last-child{border-right:none}
+.summary-title{color:var(--green);font-weight:800}
+.summary-label{font-size:11px;color:#ccc;text-transform:uppercase}
+.summary-value{font-size:21px;font-weight:800;margin-top:8px}
+.summary-input{margin-top:8px}
+.footer{
+  text-align:center;color:var(--gold);letter-spacing:7px;font-size:10px;padding:14px;
+}
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.72);
+  display:none;align-items:center;justify-content:center;z-index:50;padding:16px;
+}
+.modal.open{display:flex}
+.modal-card{
+  width:min(520px,100%);max-height:92vh;overflow:auto;
+  background:#070a07;border:1px solid var(--border);border-radius:16px;padding:18px;
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.modal-head h2{margin:0;color:var(--green)}
+.close-btn{border:none;background:transparent;color:#fff;font-size:24px}
+.toast{
+  position:fixed;right:18px;bottom:18px;
+  background:#0c120b;border:1px solid var(--green);
+  color:#fff;border-radius:10px;padding:11px 14px;
+  opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;z-index:60;
+}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:1180px){
+  .topbar{grid-template-columns:190px 1fr}
+  .status-card{grid-column:1/-1}
+  .dashboard{grid-template-columns:190px 1fr}
+  .rightbar{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:760px){
+  .app{padding:8px}
+  .topbar,.dashboard{grid-template-columns:1fr}
+  .brand-card{display:none}
+  .rightbar{display:flex}
+  .hero h1{font-size:27px}
+  .week-summary{grid-template-columns:1fr 1fr}
+  .summary-box{border-bottom:1px solid var(--border)}
+}
 </style>
 </head>
 <body>
-
 <div class="app">
-  <div class="header">
-    <div class="brand" contenteditable="true">FUMAR FILM PRODUCTION</div>
-    <h1 contenteditable="true">🎬 SHANE’S PRODUCTION SCHEDULE</h1>
-    <div class="tag" contenteditable="true">PLAN • SHOOT • EDIT • REPEAT</div>
+  <div class="topbar">
+    <div class="card brand-card">
+      <div class="crown">♛</div>
+      <div class="brand-name">FUMAR</div>
+      <div class="brand-sub">FILM PRODUCTION</div>
+    </div>
+
+    <div class="card hero">
+      <div>
+        <small id="greeting">GOOD MORNING,</small>
+        <h1>DIRECTOR <span>SHANE</span></h1>
+        <p>PLAN • SHOOT • EDIT • REPEAT</p>
+      </div>
+    </div>
+
+    <div class="card status-card">
+      <div class="quote"><b>“</b> The audience is seeing what you see.<br><span>— Christopher Nolan</span></div>
+      <div class="clock">
+        <div class="clock-time" id="clockTime">--:--</div>
+        <div class="clock-date" id="clockDate"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="layout">
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="card side-card big-date">
+        <div class="dayname" id="sideDay"></div>
+        <div class="date" id="sideDate"></div>
+      </div>
+
+      <div class="card side-card">
+        <h3 class="section-title">Month</h3>
+        <div class="mini-calendar" id="miniCalendar"></div>
+      </div>
+
+      <div class="card side-card">
+        <h3 class="section-title">Current Project</h3>
+        <div class="project-card">
+          <div class="project-thumb"></div>
+          <div>
+            <strong contenteditable="true" data-save-field="currentProject">JERKHEN COMMERCIAL</strong>
+            <div style="font-size:11px;color:var(--green);margin-top:4px">Editing</div>
+            <div class="progress"><span style="width:75%"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card side-card">
+        <h3 class="section-title">Today's Shoot</h3>
+        <div contenteditable="true" data-save-field="todayShoot" style="font-size:12px;line-height:1.7">
+          JerkHen Promo<br>
+          Location: Wynwood<br>
+          Call Time: 9:00 AM
+        </div>
+      </div>
+
+      <div class="card side-card">
+        <h3 class="section-title">Next Booking</h3>
+        <div contenteditable="true" data-save-field="nextBooking" style="font-size:12px;line-height:1.7">
+          3 Days<br>
+          Beachside Brand Commercial
+        </div>
+      </div>
+    </aside>
+
     <main>
-      <div class="controls">
-        <h3>🎬 ADD TO SCHEDULE</h3>
-        <div class="row">
-          <select id="daySelect">
-            <option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
-          </select>
-          <select id="timeSelect">
-            <option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option>
-          </select>
-          <select id="activitySelect"></select>
-          <select id="categorySelect">
-            <option value="personal">💜 Personal</option><option value="editing">🟡 Editing</option><option value="content">🟦 Content</option><option value="work">🔵 Work / School</option><option value="shoot">🟢 Shoot</option><option value="deadline">🔴 Deadline</option>
-          </select>
-          <button onclick="addEvent()">+ ADD</button>
+      <section class="calendar-shell">
+        <div class="navtabs">
+          <button class="active">▣ Schedule</button>
+          <button>▢ Projects</button>
+          <button>☷ Tasks</button>
+          <button>♙ Finances</button>
+          <button>📝 Notes</button>
+          <button>📷 Equipment</button>
         </div>
 
-        <div class="quick" id="quickButtons"></div>
-
-        <div class="custom">
-          <input id="newTaskName" placeholder="Add new favorite task, ex: 🎬 Drone Practice">
-          <select id="newTaskCategory">
-            <option value="personal">💜 Personal</option><option value="editing">🟡 Editing</option><option value="content">🟦 Content</option><option value="work">🔵 Work / School</option><option value="shoot">🟢 Shoot</option><option value="deadline">🔴 Deadline</option>
-          </select>
-          <button onclick="addFavorite()">+ ADD TASK</button>
+        <div class="week-head">
+          <div class="week-title" id="weekTitle">Week of</div>
+          <div class="week-controls">
+            <button id="prevWeek">‹</button>
+            <button id="todayBtn">Today</button>
+            <button id="nextWeek">›</button>
+            <button id="clearWeek" class="danger-btn">Clear Week</button>
+          </div>
         </div>
-      </div>
 
-      <div class="weekbar">
-        <h2 contenteditable="true">THIS WEEK</h2>
-        <div contenteditable="true">JULY 7 - JULY 13</div>
-        <button class="clearWeek" onclick="clearWeek()">CLEAR WEEK</button>
-      </div>
+        <div class="calendar-wrap">
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
 
-      <div class="calendar" id="calendar">
-        <div class="day" data-day="Monday"><div class="dayhead">MON <span contenteditable="true">7</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Monday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Tuesday"><div class="dayhead">TUE <span contenteditable="true">8</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Tuesday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Wednesday"><div class="dayhead">WED <span contenteditable="true">9</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Wednesday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Thursday"><div class="dayhead">THU <span contenteditable="true">10</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Thursday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Friday"><div class="dayhead">FRI <span contenteditable="true">11</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Friday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Saturday"><div class="dayhead">SAT <span contenteditable="true">12</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Saturday')">🗑 Clear Day</button></div>
-        <div class="day" data-day="Sunday"><div class="dayhead">SUN <span contenteditable="true">13</span></div><div class="eventList"></div><button class="clearBtn" onclick="clearDay('Sunday')">🗑 Clear Day</button></div>
-      </div>
+        <div class="quick-add card" id="quickAdd">
+          <div class="quick-label">QUICK ADD — choose a day/time first, then click a saved event</div>
+        </div>
+      </section>
 
-      <div class="footer" contenteditable="true">VISION • EXECUTION • LEGACY — SHANE</div>
+      <section class="week-summary">
+        <div class="summary-box">
+          <div class="summary-title">THIS WEEK AT A GLANCE</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:7px">Updates from your calendar and editable goals.</div>
+        </div>
+        <div class="summary-box">
+          <div class="summary-label">Shoots</div>
+          <div class="summary-value" id="shootCount">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="summary-label">Editing Events</div>
+          <div class="summary-value" id="editCount">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="summary-label">Content</div>
+          <div class="summary-value" id="contentCount">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="summary-label">Revenue</div>
+          <input class="summary-input" id="revenueInput" value="$0">
+        </div>
+        <div class="summary-box">
+          <div class="summary-label">Upcoming Clients</div>
+          <input class="summary-input" id="clientsInput" value="0">
+        </div>
+      </section>
+
+      <div class="footer">FILM YOUR DREAMS</div>
     </main>
 
-    <aside>
-      <div class="side">
-        <h3>📅 TODAY'S SCHEDULE</h3>
-        <div id="todaySchedule"></div>
+    <aside class="rightbar">
+      <div class="card side-card">
+        <button class="primary-btn" style="width:100%" id="openEventBtn">＋ New Event</button>
       </div>
 
-      <div class="side">
-        <h3>🎯 TODAY'S FOCUS</h3>
-        <div contenteditable="true">Finish the most important scene of the day first.<br><br>Record. Edit. Organize. Repeat.</div>
+      <div class="card side-card">
+        <h3 class="section-title">Today's Focus</h3>
+        <div id="focusList"></div>
+        <button class="ghost-btn" id="addFocusBtn" style="width:100%;margin-top:8px">+ Add Focus</button>
       </div>
 
-      <div class="side">
-        <h3>✅ TASKS</h3>
-        <div class="task"><input type="checkbox"><span contenteditable="true">Charge batteries</span></div>
-        <div class="task"><input type="checkbox"><span contenteditable="true">Clear SD cards</span></div>
-        <div class="task"><input type="checkbox"><span contenteditable="true">Backup footage</span></div>
-        <div class="task"><input type="checkbox"><span contenteditable="true">Prepare camera bag</span></div>
+      <div class="card side-card">
+        <h3 class="section-title">Equipment Checklist</h3>
+        <div class="equip-grid" id="equipmentList"></div>
       </div>
 
-      <div class="side legend">
-        <h3>🎨 LEGEND</h3>
-        <div><span class="dot" style="background:#7fc653"></span>Shoots</div>
-        <div><span class="dot" style="background:#d4a638"></span>Editing</div>
-        <div><span class="dot" style="background:#2ca0a0"></span>Content</div>
-        <div><span class="dot" style="background:#3278d2"></span>Work / School</div>
-        <div><span class="dot" style="background:#9750be"></span>Personal</div>
-        <div><span class="dot" style="background:#c83c32"></span>Deadline</div>
+      <div class="card side-card">
+        <h3 class="section-title">Notes</h3>
+        <textarea class="notes" id="notesArea" placeholder="Production notes..."></textarea>
+      </div>
+
+      <div class="card side-card">
+        <h3 class="section-title">Saved Events</h3>
+        <input id="favoriteName" placeholder="New saved event">
+        <select id="favoriteCategory" style="margin-top:8px">
+          <option value="personal">Personal</option>
+          <option value="editing">Editing</option>
+          <option value="content">Content</option>
+          <option value="work">Work / School</option>
+          <option value="shoot">Shoot</option>
+          <option value="deadline">Deadline</option>
+        </select>
+        <button class="primary-btn" id="addFavoriteBtn" style="width:100%;margin-top:8px">Save Event</button>
       </div>
     </aside>
   </div>
 </div>
 
-<script>
-const saveKey="shane-calendar-final-working-v1";
+<div class="modal" id="eventModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Event</h2>
+      <button class="close-btn" id="closeModal">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-row">
+        <div>
+          <label>Date</label>
+          <input type="date" id="eventDate">
+        </div>
+        <div>
+          <label>Saved Task / Event</label>
+          <select id="eventPreset"></select>
+        </div>
+      </div>
+      <div>
+        <label>Task / Event Name</label>
+        <input id="eventTitle" placeholder="Shoot JerkHen Promo">
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Start Time</label>
+          <input type="time" id="eventStart" value="09:00">
+        </div>
+        <div>
+          <label>End Time</label>
+          <input type="time" id="eventEnd" value="10:00">
+        </div>
+      </div>
+      <div>
+        <label>Category</label>
+        <select id="eventCategory">
+          <option value="personal">Personal</option>
+          <option value="editing">Editing</option>
+          <option value="content">Content</option>
+          <option value="work">Work / School</option>
+          <option value="shoot">Shoot</option>
+          <option value="deadline">Deadline</option>
+        </select>
+      </div>
+      <div>
+        <label>Location</label>
+        <input id="eventLocation" placeholder="Optional">
+      </div>
+      <div>
+        <label>Notes</label>
+        <textarea id="eventNotes" placeholder="Optional details"></textarea>
+      </div>
+      <div>
+        <label>Repeat</label>
+        <select id="eventRepeat">
+          <option value="none">Does not repeat</option>
+          <option value="daily">Daily for this week</option>
+          <option value="weekly">Weekly for 8 weeks</option>
+        </select>
+      </div>
+      <button class="primary-btn" id="saveEventBtn">Add to Schedule</button>
+    </div>
+  </div>
+</div>
 
-let favorites=[
-{name:"🧘 Yoga",category:"personal"},
-{name:"☕ Breakfast",category:"personal"},
-{name:"🐾 Walk Dog",category:"personal"},
-{name:"👦 Isaiah Time",category:"personal"},
-{name:"👑 Queen Time",category:"personal"},
-{name:"🎬 Record Content",category:"shoot"},
-{name:"🎙️ Record Audio",category:"content"},
-{name:"✂️ Editing Time",category:"editing"},
-{name:"💼 Work",category:"work"},
-{name:"📚 School",category:"work"},
-{name:"🏋️ Gym",category:"personal"},
-{name:"🚴 Bike Ride",category:"personal"},
-{name:"🌱 Water Plants",category:"personal"},
-{name:"🚗 Running Errands",category:"personal"},
-{name:"✍️ Writing Time",category:"content"}
+<div class="toast" id="toast">Saved</div>
+
+<script>
+const STORAGE_KEY = "shane-director-dashboard-v3";
+const hours = Array.from({length:17},(_,i)=>i+6); // 6 AM - 10 PM
+const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+const defaultFavorites = [
+  {name:"🧘 Yoga",category:"personal",duration:60},
+  {name:"☕ Breakfast",category:"personal",duration:60},
+  {name:"🐾 Walk Dog",category:"personal",duration:60},
+  {name:"👦 Isaiah Time",category:"personal",duration:60},
+  {name:"👑 Queen Time",category:"personal",duration:60},
+  {name:"🎬 Record Content",category:"shoot",duration:60},
+  {name:"🎙️ Record Audio",category:"content",duration:60},
+  {name:"✂️ Editing Time",category:"editing",duration:120},
+  {name:"💼 Work Block",category:"work",duration:120},
+  {name:"📚 School",category:"work",duration:90},
+  {name:"🏋️ Gym",category:"personal",duration:60},
+  {name:"🚴 Bike Ride",category:"personal",duration:60},
+  {name:"🌱 Water Plants",category:"personal",duration:30},
+  {name:"🚗 Running Errands",category:"personal",duration:60},
+  {name:"✍️ Writing Time",category:"content",duration:60}
 ];
 
-function renderFavorites(){
-  const select=document.getElementById("activitySelect");
-  const quick=document.getElementById("quickButtons");
-  select.innerHTML="";
-  quick.innerHTML="";
-  favorites.forEach(f=>{
-    let opt=document.createElement("option");
-    opt.value=f.name;
-    opt.textContent=f.name;
-    select.appendChild(opt);
+const defaultState = {
+  weekOffset:0,
+  events:[],
+  favorites:defaultFavorites,
+  focus:[
+    {text:"JerkHen Promo Shoot",done:true},
+    {text:"Capture B-Roll",done:true},
+    {text:"Client Call 3PM",done:true},
+    {text:"Edit 2 Hours",done:false}
+  ],
+  equipment:[
+    {name:"Camera",done:false},
+    {name:"Lens Kit",done:false},
+    {name:"Drone",done:false},
+    {name:"Gimbal",done:false},
+    {name:"Batteries",done:false},
+    {name:"SD Cards",done:false},
+    {name:"Lights",done:false},
+    {name:"Mic",done:false}
+  ],
+  notes:"",
+  revenue:"$0",
+  clients:"0",
+  fields:{}
+};
 
-    let btn=document.createElement("button");
-    btn.textContent=f.name;
-    btn.onclick=()=>quickAdd(f.name,f.category);
-    quick.appendChild(btn);
-  });
+let state = loadState();
+let selectedSlot = null;
+let editingEventId = null;
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return structuredClone(defaultState);
+    const parsed = JSON.parse(raw);
+    return {
+      ...structuredClone(defaultState),
+      ...parsed,
+      favorites:parsed.favorites?.length ? parsed.favorites : structuredClone(defaultFavorites)
+    };
+  }catch(e){
+    return structuredClone(defaultState);
+  }
 }
 
-function addFavorite(){
-  const name=document.getElementById("newTaskName").value.trim();
-  const category=document.getElementById("newTaskCategory").value;
-  if(!name)return;
-  favorites.push({name,category});
-  document.getElementById("newTaskName").value="";
-  renderFavorites();
-  save();
+function saveState(show=true){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  if(show) showToast("Saved");
 }
 
-function addEvent(){
-  const day=document.getElementById("daySelect").value;
-  const time=document.getElementById("timeSelect").value;
-  const activity=document.getElementById("activitySelect").value;
-  const category=document.getElementById("categorySelect").value;
-  createEvent(day,time+" "+activity,category);
+function showToast(text){
+  const toast=document.getElementById("toast");
+  toast.textContent=text;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>toast.classList.remove("show"),1100);
 }
 
-function quickAdd(activity,category){
-  const day=document.getElementById("daySelect").value;
-  const time=document.getElementById("timeSelect").value;
-  createEvent(day,time+" "+activity,category);
+function startOfWeek(date){
+  const d=new Date(date);
+  const day=d.getDay();
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate()-day);
+  return d;
 }
 
-function createEvent(day,text,category){
-  const list=document.querySelector(`.day[data-day="${day}"] .eventList`);
-  if(!list)return;
+function currentWeekStart(){
+  const d=startOfWeek(new Date());
+  d.setDate(d.getDate() + state.weekOffset*7);
+  return d;
+}
+
+function isoDate(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function formatTime(hour){
+  const h=hour%12||12;
+  return `${h}${hour<12?"AM":"PM"}`;
+}
+
+function formatInputTime(hour){
+  return `${String(hour).padStart(2,"0")}:00`;
+}
+
+function addMinutes(time,minutes){
+  const [h,m]=time.split(":").map(Number);
+  const d=new Date(2000,0,1,h,m+minutes);
+  return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+}
+
+function formatDisplayTime(time){
+  const [h,m]=time.split(":").map(Number);
+  const suffix=h>=12?"PM":"AM";
+  const hh=h%12||12;
+  return `${hh}:${String(m).padStart(2,"0")} ${suffix}`;
+}
+
+function updateClock(){
+  const now=new Date();
+  document.getElementById("clockTime").textContent=now.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+  document.getElementById("clockDate").textContent=now.toLocaleDateString([], {weekday:"short",month:"short",day:"numeric"});
+  document.getElementById("sideDay").textContent=now.toLocaleDateString([], {weekday:"long"}).toUpperCase();
+  document.getElementById("sideDate").textContent=now.toLocaleDateString([], {month:"long",day:"numeric",year:"numeric"});
+  const hour=now.getHours();
+  document.getElementById("greeting").textContent=
+    hour<12?"GOOD MORNING,":hour<18?"GOOD AFTERNOON,":"GOOD EVENING,";
+}
+setInterval(updateClock,1000);
+updateClock();
+
+function renderMiniCalendar(){
+  const now=new Date();
+  const year=now.getFullYear(),month=now.getMonth();
+  const first=new Date(year,month,1);
+  const days=new Date(year,month+1,0).getDate();
+  const box=document.getElementById("miniCalendar");
+  box.innerHTML=["S","M","T","W","T","F","S"].map(x=>`<div class="head">${x}</div>`).join("");
+  for(let i=0;i<first.getDay();i++) box.innerHTML+=`<div></div>`;
+  for(let d=1;d<=days;d++){
+    const cls=d===now.getDate()?"cell today":"cell";
+    box.innerHTML+=`<div class="${cls}">${d}</div>`;
+  }
+}
+
+function renderCalendar(){
+  const start=currentWeekStart();
+  const end=new Date(start); end.setDate(end.getDate()+6);
+  document.getElementById("weekTitle").textContent=
+    `WEEK OF ${start.toLocaleDateString([], {month:"long",day:"numeric"}).toUpperCase()} – ${end.toLocaleDateString([], {month:"long",day:"numeric",year:"numeric"}).toUpperCase()}`;
+
+  const grid=document.getElementById("calendarGrid");
+  grid.innerHTML=`<div class="corner"></div>`;
+  for(let i=0;i<7;i++){
+    const d=new Date(start); d.setDate(d.getDate()+i);
+    const today=isoDate(d)===isoDate(new Date())?" today":"";
+    grid.innerHTML+=`<div class="dayhead${today}">${dayNames[d.getDay()].slice(0,3).toUpperCase()} <span class="num">${d.getDate()}</span></div>`;
+  }
+
+  for(const hour of hours){
+    grid.innerHTML+=`<div class="timecell">${formatTime(hour)}</div>`;
+    for(let i=0;i<7;i++){
+      const d=new Date(start); d.setDate(d.getDate()+i);
+      const date=isoDate(d);
+      const slot=document.createElement("div");
+      slot.className="slot";
+      slot.dataset.date=date;
+      slot.dataset.hour=hour;
+      slot.addEventListener("click",e=>{
+        if(e.target.closest(".event"))return;
+        selectedSlot={date,hour};
+        openEventModal();
+      });
+      slot.addEventListener("dragover",e=>{e.preventDefault();slot.classList.add("drag-over")});
+      slot.addEventListener("dragleave",()=>slot.classList.remove("drag-over"));
+      slot.addEventListener("drop",e=>{
+        e.preventDefault();slot.classList.remove("drag-over");
+        const id=e.dataTransfer.getData("text/plain");
+        const ev=state.events.find(x=>x.id===id);
+        if(ev){
+          const duration=timeDiff(ev.start,ev.end);
+          ev.date=date;
+          ev.start=formatInputTime(hour);
+          ev.end=addMinutes(ev.start,duration);
+          saveState(false);renderAll();
+        }
+      });
+
+      const slotEvents=state.events.filter(ev=>ev.date===date && Number(ev.start.slice(0,2))===hour);
+      slotEvents.sort((a,b)=>a.start.localeCompare(b.start));
+      slotEvents.forEach(ev=>slot.appendChild(makeEventEl(ev)));
+      grid.appendChild(slot);
+    }
+  }
+  updateSummary();
+}
+
+function timeDiff(start,end){
+  const [sh,sm]=start.split(":").map(Number);
+  const [eh,em]=end.split(":").map(Number);
+  return Math.max(30,(eh*60+em)-(sh*60+sm));
+}
+
+function makeEventEl(ev){
   const div=document.createElement("div");
-  div.className="event "+category;
-  div.contentEditable="true";
-  div.innerHTML=`<div class="eventText">${text}</div><div class="eventBtns"><button onclick="duplicateEvent(this)">Copy</button><button onclick="deleteEvent(this)">Delete</button></div>`;
-  list.appendChild(div);
-  save();
-  updateToday();
-}
-
-function deleteEvent(btn){
-  btn.closest(".event").remove();
-  save();
-  updateToday();
-}
-
-function duplicateEvent(btn){
-  const event=btn.closest(".event");
-  event.parentElement.appendChild(event.cloneNode(true));
-  save();
-  updateToday();
-}
-
-function clearDay(day){
-  const list=document.querySelector(`.day[data-day="${day}"] .eventList`);
-  if(list){list.innerHTML="";save();updateToday();}
-}
-
-function clearWeek(){
-  document.querySelectorAll(".eventList").forEach(l=>l.innerHTML="");
-  save();
-  updateToday();
-}
-
-function updateToday(){
-  const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-  const today=days[new Date().getDay()];
-  const box=document.querySelector(`.day[data-day="${today}"] .eventList`);
-  const output=document.getElementById("todaySchedule");
-  if(!box||!output)return;
-  const events=[...box.querySelectorAll(".eventText")];
-  output.innerHTML=events.length?events.map(e=>`<div class="todayItem">${e.innerText}</div>`).join(""):`<div class="todayItem">No events added today yet.</div>`;
-}
-
-function save(){
-  const data={
-    favorites,
-    calendar:document.getElementById("calendar").innerHTML,
-    editable:[...document.querySelectorAll('[contenteditable="true"]')].map(e=>e.innerHTML),
-    checks:[...document.querySelectorAll('input[type="checkbox"]')].map(e=>e.checked)
+  div.className=`event cat-${ev.category}`;
+  div.draggable=true;
+  div.dataset.id=ev.id;
+  div.innerHTML=`
+    <div class="event-time">${formatDisplayTime(ev.start)}</div>
+    <div class="event-title">${escapeHtml(ev.title)}</div>
+    ${ev.location?`<div class="event-meta">${escapeHtml(ev.location)}</div>`:""}
+    <div class="event-actions">
+      <button data-action="edit">✎</button>
+      <button data-action="delete">×</button>
+    </div>`;
+  div.addEventListener("dragstart",e=>e.dataTransfer.setData("text/plain",ev.id));
+  div.querySelector('[data-action="edit"]').onclick=e=>{e.stopPropagation();editEvent(ev.id)};
+  div.querySelector('[data-action="delete"]').onclick=e=>{
+    e.stopPropagation();
+    state.events=state.events.filter(x=>x.id!==ev.id);
+    saveState(false);renderAll();
   };
-  localStorage.setItem(saveKey,JSON.stringify(data));
+  return div;
 }
 
-function load(){
-  const saved=JSON.parse(localStorage.getItem(saveKey)||"null");
-  if(!saved)return;
-  if(saved.favorites)favorites=saved.favorites;
-  if(saved.calendar)document.getElementById("calendar").innerHTML=saved.calendar;
+function escapeHtml(str=""){
+  return str.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
+}
+
+function renderFavorites(){
+  const quick=document.getElementById("quickAdd");
+  quick.innerHTML=`<div class="quick-label">QUICK ADD — choose a day/time first, then click a saved event</div>`;
+  const preset=document.getElementById("eventPreset");
+  preset.innerHTML=`<option value="">Choose saved event</option>`;
+  state.favorites.forEach((f,index)=>{
+    const btn=document.createElement("button");
+    btn.textContent=f.name;
+    btn.onclick=()=>{
+      if(!selectedSlot){
+        selectedSlot={date:isoDate(new Date()),hour:9};
+      }
+      openEventModal(f);
+    };
+    quick.appendChild(btn);
+    preset.innerHTML+=`<option value="${index}">${escapeHtml(f.name)}</option>`;
+  });
+  const custom=document.createElement("button");
+  custom.textContent="+ Custom Task";
+  custom.onclick=()=>openEventModal();
+  quick.appendChild(custom);
+}
+
+function openEventModal(favorite=null){
+  editingEventId=null;
+  document.getElementById("modalTitle").textContent="Add Event";
+  const date=selectedSlot?.date||isoDate(new Date());
+  const hour=selectedSlot?.hour??9;
+  document.getElementById("eventDate").value=date;
+  document.getElementById("eventStart").value=formatInputTime(hour);
+  document.getElementById("eventEnd").value=addMinutes(formatInputTime(hour),favorite?.duration||60);
+  document.getElementById("eventTitle").value=favorite?.name||"";
+  document.getElementById("eventCategory").value=favorite?.category||"personal";
+  document.getElementById("eventLocation").value="";
+  document.getElementById("eventNotes").value="";
+  document.getElementById("eventRepeat").value="none";
+  document.getElementById("eventPreset").value="";
+  document.getElementById("saveEventBtn").textContent="Add to Schedule";
+  document.getElementById("eventModal").classList.add("open");
+}
+
+function editEvent(id){
+  const ev=state.events.find(x=>x.id===id);
+  if(!ev)return;
+  editingEventId=id;
+  document.getElementById("modalTitle").textContent="Edit Event";
+  document.getElementById("eventDate").value=ev.date;
+  document.getElementById("eventStart").value=ev.start;
+  document.getElementById("eventEnd").value=ev.end;
+  document.getElementById("eventTitle").value=ev.title;
+  document.getElementById("eventCategory").value=ev.category;
+  document.getElementById("eventLocation").value=ev.location||"";
+  document.getElementById("eventNotes").value=ev.notes||"";
+  document.getElementById("eventRepeat").value="none";
+  document.getElementById("saveEventBtn").textContent="Save Changes";
+  document.getElementById("eventModal").classList.add("open");
+}
+
+function saveEvent(){
+  const base={
+    id:editingEventId||crypto.randomUUID(),
+    date:document.getElementById("eventDate").value,
+    start:document.getElementById("eventStart").value,
+    end:document.getElementById("eventEnd").value,
+    title:document.getElementById("eventTitle").value.trim(),
+    category:document.getElementById("eventCategory").value,
+    location:document.getElementById("eventLocation").value.trim(),
+    notes:document.getElementById("eventNotes").value.trim()
+  };
+  if(!base.title||!base.date)return showToast("Add a title and date");
+
+  if(editingEventId){
+    const idx=state.events.findIndex(x=>x.id===editingEventId);
+    state.events[idx]=base;
+  }else{
+    const repeat=document.getElementById("eventRepeat").value;
+    if(repeat==="none"){
+      state.events.push(base);
+    }else if(repeat==="daily"){
+      const start=currentWeekStart();
+      for(let i=0;i<7;i++){
+        const d=new Date(start);d.setDate(d.getDate()+i);
+        state.events.push({...base,id:crypto.randomUUID(),date:isoDate(d)});
+      }
+    }else if(repeat==="weekly"){
+      for(let i=0;i<8;i++){
+        const d=new Date(base.date+"T00:00:00");d.setDate(d.getDate()+i*7);
+        state.events.push({...base,id:crypto.randomUUID(),date:isoDate(d)});
+      }
+    }
+  }
+  saveState(false);
+  closeModal();
+  renderAll();
+  showToast("Event saved");
+}
+
+function renderFocus(){
+  const box=document.getElementById("focusList");
+  box.innerHTML="";
+  state.focus.forEach((item,i)=>{
+    const row=document.createElement("div");
+    row.className="focus-item";
+    row.innerHTML=`<input type="checkbox" ${item.done?"checked":""}><input type="text" value="${escapeHtml(item.text)}"><button class="close-btn" style="font-size:16px">×</button>`;
+    const [check,text,del]=row.children;
+    check.onchange=()=>{state.focus[i].done=check.checked;saveState(false)};
+    text.oninput=()=>{state.focus[i].text=text.value;saveState(false)};
+    del.onclick=()=>{state.focus.splice(i,1);saveState(false);renderFocus()};
+    box.appendChild(row);
+  });
+}
+
+function renderEquipment(){
+  const box=document.getElementById("equipmentList");
+  box.innerHTML="";
+  state.equipment.forEach((item,i)=>{
+    const label=document.createElement("label");
+    label.className="equip-item";
+    label.innerHTML=`<input type="checkbox" ${item.done?"checked":""}><span>${escapeHtml(item.name)}</span>`;
+    label.querySelector("input").onchange=e=>{state.equipment[i].done=e.target.checked;saveState(false)};
+    box.appendChild(label);
+  });
+}
+
+function updateSummary(){
+  const start=currentWeekStart(),end=new Date(start);end.setDate(end.getDate()+7);
+  const weekly=state.events.filter(ev=>{
+    const d=new Date(ev.date+"T00:00:00");
+    return d>=start&&d<end;
+  });
+  document.getElementById("shootCount").textContent=weekly.filter(x=>x.category==="shoot").length;
+  document.getElementById("editCount").textContent=weekly.filter(x=>x.category==="editing").length;
+  document.getElementById("contentCount").textContent=weekly.filter(x=>x.category==="content").length;
+}
+
+function renderSavedFields(){
+  document.querySelectorAll("[data-save-field]").forEach(el=>{
+    const key=el.dataset.saveField;
+    if(state.fields[key]!==undefined) el.innerHTML=state.fields[key];
+    el.addEventListener("input",()=>{state.fields[key]=el.innerHTML;saveState(false)});
+  });
+  document.getElementById("notesArea").value=state.notes;
+  document.getElementById("revenueInput").value=state.revenue;
+  document.getElementById("clientsInput").value=state.clients;
+}
+
+function renderAll(){
+  renderCalendar();
   renderFavorites();
-
-  document.querySelectorAll('[contenteditable="true"]').forEach((el,i)=>{
-    if(saved.editable&&saved.editable[i]!==undefined)el.innerHTML=saved.editable[i];
-  });
-  document.querySelectorAll('input[type="checkbox"]').forEach((el,i)=>{
-    if(saved.checks&&saved.checks[i]!==undefined)el.checked=saved.checks[i];
-  });
+  renderFocus();
+  renderEquipment();
+  renderMiniCalendar();
 }
 
-renderFavorites();
-load();
-updateToday();
+function closeModal(){document.getElementById("eventModal").classList.remove("open")}
 
-document.addEventListener("input",()=>{save();updateToday();});
-document.addEventListener("change",()=>{save();updateToday();});
+document.getElementById("prevWeek").onclick=()=>{state.weekOffset--;saveState(false);renderAll()};
+document.getElementById("nextWeek").onclick=()=>{state.weekOffset++;saveState(false);renderAll()};
+document.getElementById("todayBtn").onclick=()=>{state.weekOffset=0;saveState(false);renderAll()};
+document.getElementById("openEventBtn").onclick=()=>{selectedSlot={date:isoDate(new Date()),hour:9};openEventModal()};
+document.getElementById("closeModal").onclick=closeModal;
+document.getElementById("eventModal").onclick=e=>{if(e.target.id==="eventModal")closeModal()};
+document.getElementById("saveEventBtn").onclick=saveEvent;
+document.getElementById("clearWeek").onclick=()=>{
+  const start=currentWeekStart(),end=new Date(start);end.setDate(end.getDate()+7);
+  state.events=state.events.filter(ev=>{
+    const d=new Date(ev.date+"T00:00:00");
+    return !(d>=start&&d<end);
+  });
+  saveState(false);renderAll();showToast("Week cleared");
+};
+document.getElementById("eventPreset").onchange=e=>{
+  if(e.target.value==="")return;
+  const f=state.favorites[Number(e.target.value)];
+  document.getElementById("eventTitle").value=f.name;
+  document.getElementById("eventCategory").value=f.category;
+  document.getElementById("eventEnd").value=addMinutes(document.getElementById("eventStart").value,f.duration||60);
+};
+document.getElementById("addFavoriteBtn").onclick=()=>{
+  const name=document.getElementById("favoriteName").value.trim();
+  if(!name)return;
+  state.favorites.push({name,category:document.getElementById("favoriteCategory").value,duration:60});
+  document.getElementById("favoriteName").value="";
+  saveState(false);renderFavorites();showToast("Saved event added");
+};
+document.getElementById("addFocusBtn").onclick=()=>{
+  state.focus.push({text:"New focus",done:false});saveState(false);renderFocus();
+};
+document.getElementById("notesArea").oninput=e=>{state.notes=e.target.value;saveState(false)};
+document.getElementById("revenueInput").oninput=e=>{state.revenue=e.target.value;saveState(false)};
+document.getElementById("clientsInput").oninput=e=>{state.clients=e.target.value;saveState(false)};
+
+renderSavedFields();
+renderAll();
 </script>
-
 </body>
 </html>
